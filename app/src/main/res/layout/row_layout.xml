@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- We zetten even een dummy image om het resultaat te zien -->
+    <!-- layout_height (en width voor ImageView) wordt voor ImageView en TextView gedifinieerd om een
+         consistent resultaat te hebben-->
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="100dp"
+        android:id="@+id/icon"
+        android:src="@drawable/film"/>
+
+    <!-- We zetten even dummytekst om het resultaat te zien -->
+    <!-- toEndOf en toRightOf doen hetzelfde, toRightOf is nodig om oudere API te ondersteunen -->
+    <!-- marginStart en marginLeft doen hetzelfde,
+         marginLeft is nodig om oudere API te ondersteunen -->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="215dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/icon"
+        android:gravity="center_vertical"
+        android:text="@string/film_Titel"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/genre"
+        android:layout_width="75dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="0dp"
+        android:layout_toEndOf="@+id/name"
+        android:src="@drawable/comedy"
+        android:layout_alignParentTop="true"
+        />
+
+</RelativeLayout>

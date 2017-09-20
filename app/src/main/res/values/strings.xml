@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">movieApplicaiton</string>
+    <string name="film_Titel">The good the bad and the ugly</string>
+    <string-array name="titles">
+        <item>The good the bad and the ugly</item>
+        <item>The Big Lebowsky</item>
+        <item>Boondock Saints</item>
+        <item>Apocalypse Now</item>
+        <item>The Deer Hunter</item>
+        <item>Spirited Away</item>
+        <item>Good Will Hunting</item>
+        <item>LaLa Land</item>
+    </string-array>
+
+    <!-- (Spinner List) -->
+    <string-array name="genres">
+        <item>Thriller</item>
+        <item>Comedy</item>
+        <item>Action</item>
+        <item>Thriller</item>
+        <item>Thriller</item>
+        <item>Animation</item>
+        <item>Drama</item>
+        <item>Musical</item>
+    </string-array>
+</resources>
