@@ -4,6 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
     <fragment android:name="com.example.pierre.movieapplicaiton.FilmLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

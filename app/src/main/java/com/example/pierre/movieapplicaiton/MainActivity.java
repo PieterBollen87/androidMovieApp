@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity implements FilmListener {
         if (findViewById(R.id.fragment_container2) != null) {
             // Indien het bestaat haal je deze op via de Fragmentmanager, belangrijk hier is dat je het id van de container met het fragment in
             // ophaalt en niet het id van het fragment zelf!
-            FilmLayout detailFragment = (FilmLayout) getFragmentManager().findFragmentById(R.id.fragment_container2);
+            FilmLayout filmFragment = (FilmLayout) getFragmentManager().findFragmentById(R.id.fragment_container2);
             // Roep de functie in DetailFragment aan
-            detailFragment.setAllFieldsAndImageFromPosition(position);
+            filmFragment.setAllFieldsAndImageFromPosition(position);
         } else {
             // Indien het niet bestaat, stuur je door naar DetailActivity, die op zijn beurt fragment_container2 bevat
             // Dit is dezelfde code als boven in comments staat
