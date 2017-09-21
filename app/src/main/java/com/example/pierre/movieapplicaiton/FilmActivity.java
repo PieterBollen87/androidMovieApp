@@ -48,8 +48,7 @@ public class FilmActivity extends Activity implements FilmListener {
     @Override
     public void setFieldsAndPicture(int position) {
         FilmLayout filmLayout = (FilmLayout) getFragmentManager().findFragmentById(R.id.fragment_container2);
-        // Roep de functie in DetailFragment aan
-       // filmLayout.setAllFieldsAndImageFromPosition(position);
+        filmLayout.setAllFieldsAndImageFromPosition(position);
         setBackgroundImage(position);
     }
     public void setBackgroundImage(int position) {
@@ -57,12 +56,7 @@ public class FilmActivity extends Activity implements FilmListener {
         String[] movies = res.getStringArray(R.array.titles);
         String movie = movies[position];
         String url = movie.toLowerCase().replace(" ","_");
-//        RelativeLayout layout =(RelativeLayout)findViewById(R.id.filmLayout);
-//       layout.setBackground(Drawable.createFromPath(url));
         ImageView backgroundImageView=findViewById(R.id.backgroundImage);
-
-       // Fragment fragmentView = getFragmentManager().findFragmentById(R.layout.film_layout);
-        //Fragment f= fragmentView.getFragmentManager().findFragmentById(R.id.backgroundImage);
         Context c = backgroundImageView.getContext();
         int id = c.getResources().getIdentifier(url, "drawable", c.getPackageName());
         backgroundImageView.setBackgroundResource(id);

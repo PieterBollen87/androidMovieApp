@@ -27,7 +27,7 @@ public class FilmLayout extends Fragment {
 
 
         // Haal alle verschillende views op
-        backgroundField = (ImageView) fragmentView.findViewById(R.id.backgroundImage);
+//        backgroundField = (ImageView) fragmentView.findViewById(R.id.backgroundImage);
         titleField = (TextView) fragmentView.findViewById(R.id.titleField);
         descriptionField = (TextView) fragmentView.findViewById(R.id.descriptionField);
         dateField = (TextView) fragmentView.findViewById(R.id.yearField);
@@ -50,10 +50,10 @@ public class FilmLayout extends Fragment {
         String year = years[position];
         String rating = ratings[position];
 
-        String url = movie.toLowerCase().replace(" ","_");
-        Context context = backgroundField.getContext();
-        int id = context.getResources().getIdentifier(url, "drawable", context.getPackageName());
-        backgroundField.setImageResource(id);
+//        String url = movie.toLowerCase().replace(" ","_");
+//        Context context = backgroundField.getContext();
+//        int id = context.getResources().getIdentifier(url, "drawable", context.getPackageName());
+//        backgroundField.setImageResource(id);
         titleField.setText(movie);
         dateField.setText(year);
         ratingField.setText(rating);
