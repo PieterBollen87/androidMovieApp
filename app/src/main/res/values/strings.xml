@@ -23,4 +23,26 @@
         <item>Drama</item>
         <item>Musical</item>
     </string-array>
+
+    <string-array name="years">
+        <item>1966</item>
+        <item>1998</item>
+        <item>1999</item>
+        <item>1979</item>
+        <item>1978</item>
+        <item>2001</item>
+        <item>1997</item>
+        <item>2016</item>
+    </string-array>
+
+    <string-array name="ratings">
+        <item>8/10</item>
+        <item>9/10</item>
+        <item>7.3/10</item>
+        <item>9.5/10</item>
+        <item>6/10</item>
+        <item>8.2/10</item>
+        <item>6.8/10</item>
+        <item>9/10</item>
+    </string-array>
 </resources>
