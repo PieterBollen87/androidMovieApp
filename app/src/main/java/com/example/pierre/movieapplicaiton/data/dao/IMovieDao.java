@@ -1,6 +1,6 @@
-package com.sacha.dao;
+package com.example.pierre.movieapplicaiton.data.dao;
 
-import com.sacha.bean.MovieBean;
+import com.example.pierre.movieapplicaiton.data.bean.MovieBean;
 
 import java.util.List;
 
@@ -10,4 +10,6 @@ import java.util.List;
 public interface IMovieDao {
     public MovieBean getMovieById(int id);
     public List<MovieBean> getPopularMovies();
+    public List<MovieBean> getAllMovies();
+
 }

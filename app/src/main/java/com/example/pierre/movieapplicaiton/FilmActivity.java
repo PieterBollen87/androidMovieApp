@@ -14,6 +14,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.pierre.movieapplicaiton.data.bean.MovieBean;
+import com.example.pierre.movieapplicaiton.data.dao.MovieaApiDao;
+import com.example.pierre.movieapplicaiton.data.service.IMovieService;
+import com.example.pierre.movieapplicaiton.data.service.MovieService;
+
+import java.util.List;
+
 /**
  * Created by Rosta on 12-11-2016.
  */
@@ -54,6 +61,9 @@ public class FilmActivity extends Activity implements FilmListener {
     public void setBackgroundImage(int position) {
         Resources res = getResources();
         String[] movies = res.getStringArray(R.array.titles);
+        IMovieService movieService = new MovieService(new MovieaApiDao("3c0f0b4edd4c11618a02c07f207ab230"));
+        List<MovieBean> moviess = movieService.getAllMovies();
+        movies.toString();
         String movie = movies[position];
         String url = movie.toLowerCase().replace(" ","_");
         ImageView backgroundImageView=findViewById(R.id.backgroundImage);

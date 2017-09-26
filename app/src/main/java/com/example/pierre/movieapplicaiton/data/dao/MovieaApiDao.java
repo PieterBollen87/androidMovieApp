@@ -1,23 +1,21 @@
-package com.sacha.dao;
+package com.example.pierre.movieapplicaiton.data.dao;
 
+import com.example.pierre.movieapplicaiton.data.bean.MovieBean;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sacha.bean.MovieBean;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Sacha on 25-9-2017.
  */
-public class MovieaApiDao implements IMovieDao {
+public class MovieaApiDao  implements IMovieDao {
     private String apiKey;
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -50,6 +48,22 @@ public class MovieaApiDao implements IMovieDao {
             JsonNode json = mapper.readTree(content.toString());
 
             List<MovieBean> movies = new ObjectMapper().readValue(json.get("results").toString(), new TypeReference<List<MovieBean>>() { });;
+            return movies;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        }
+        return null;
+    }
+
+    @Override
+    public List<MovieBean> getAllMovies() {
+        try {
+            URL url = new URL("http://localhost:3000/api/films");
+            StringBuffer content = getRequest(url);
+
+            List<MovieBean>  movies = new ObjectMapper().readValue(content.toString(), new TypeReference<List<MovieBean>>() { });
             return movies;
 
         } catch (Exception ex) {

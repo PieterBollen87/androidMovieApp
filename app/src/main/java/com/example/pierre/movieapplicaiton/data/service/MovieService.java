@@ -1,7 +1,7 @@
-package com.sacha.service;
+package com.example.pierre.movieapplicaiton.data.service;
 
-import com.sacha.bean.MovieBean;
-import com.sacha.dao.IMovieDao;
+import com.example.pierre.movieapplicaiton.data.bean.MovieBean;
+import com.example.pierre.movieapplicaiton.data.dao.IMovieDao;
 
 import java.util.List;
 
@@ -24,4 +24,10 @@ public class MovieService implements IMovieService {
     public List<MovieBean> getPopularMovies() {
         return movieDao.getPopularMovies();
     }
+
+    @Override
+    public List<MovieBean> getAllMovies() {
+        return movieDao.getAllMovies();
+    }
+
 }

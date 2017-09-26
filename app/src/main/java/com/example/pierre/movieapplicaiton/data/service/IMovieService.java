@@ -1,6 +1,6 @@
-package com.sacha.service;
+package com.example.pierre.movieapplicaiton.data.service;
 
-import com.sacha.bean.MovieBean;
+import com.example.pierre.movieapplicaiton.data.bean.MovieBean;
 
 import java.util.List;
 
@@ -10,4 +10,5 @@ import java.util.List;
 public interface IMovieService {
     public MovieBean getMovieById(int id);
     public List<MovieBean> getPopularMovies();
+    public List<MovieBean> getAllMovies();
 }
