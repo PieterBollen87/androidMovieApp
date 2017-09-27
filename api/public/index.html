@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="nl">
+<head>
+	<meta charset="UTF-8">
+	<title>Films</title>
+	<link rel="stylesheet" href="js/lib/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
+<body ng-app="myApp">
+<div class="container" ng-controller="filmController as vm">
+	<h1>Films</h1>
+	<table class="table table-striped">
+		<tr>
+			<th>ID</th>
+			<th>Titel</th>
+			<th>auteur</th>
+			<th>Jaar</th>
+		</tr>
+		<tr ng-repeat="film in vm.films">
+			<td>{{film.id}}</td>
+			<td>{{film.title}}</td>
+			<td>{{film.auteur}}</td>
+			<td>{{film.jaar}}</td>
+			<td>
+				<button ng-click="vm.deleteFilm(film)" class="btn btn-danger">Verwijderen</button>
+			</td>
+		</tr>
+	</table>
+	<button class="btn btn-lg btn-primary btn-block" ng-click="vm.showForm()">Film toevoegen</button>
+
+	<div ng-show="vm.addFilmVisible">
+		<form class="form-signin col-md-6">
+			<h2 class="form-signin-heading">Nieuwe film toevoegen</h2>
+			<label for="titel">Titel</label>
+			<input ng-model="vm.titel" type="text" id="titel" name="titel" class="form-control" placeholder="Titel"
+				   required
+				   autofocus>
+			<label for="auteur">Auteur</label>
+			<input ng-model="vm.auteur" type="text" id="auteur" name="auteur" class="form-control" placeholder="Auteur"
+				   required>
+			<label for="auteur">Jaar</label>
+			<input ng-model="vm.jaar" type="number" id="jaar" name="jaar" class="form-control" placeholder="JAAR"
+				   required>
+			<button class="btn btn-lg btn-primary btn-block" ng-click="vm.addFilm()">Toevoegen</button>			
+		</form>
+	</div>
+</div>
+<script src="js/lib/angular/angular.min.js"></script>
+<script>
+	angular.module('myApp', [])
+			.controller('filmController', filmController);
+	function filmController($http) {
+		// 0. initialisaties, variabelen
+		var vm = this;
+		var url = 'http://localhost:3000/api/films';
+		var urlAddFilm = 'http://localhost:3000/api/addfilm';
+		var urlDeleteFilm = 'http://localhost:3000/api/deletefilm';
+		vm.addFilmVisible = false;
+
+		// 1. Eerste keer laden: haal films op.
+		$http({
+			method: 'get',
+			url   : url
+		}).then(function (films) {
+			vm.films = films.data;
+		}).catch(function (err) {
+			alert('Error: er is een fout opgetreden ' + err);
+		});
+
+		// 2. Formulier zichtbaar maken
+		vm.showForm = function () {
+			vm.addFilmVisible = true;
+		};
+
+		// 3. Boek toevoegen vanuit formulier
+		vm.addFilm = function () {
+			// 3a. Nieuw boek-object maken
+			var newFilm = {
+				"titel" : vm.titel,
+				"auteur": vm.auteur,
+				"jaar"  : vm.jaar
+			};
+			// 3b. Verzenden naar Express-server
+			$http({
+				method : 'post',
+				url    : urlAddFilm,
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data   : newFilm
+			}).then(function (films) {
+				// Teruggekregen films binden aan de tabel.
+				vm.films = films.data;
+			}).catch(function (err) {
+				alert('Er is een fout opgetreden: ' + err);
+			})
+		}
+		// 4. Film verwijderen
+			vm.deleteFilm = function (film) {				
+				if (confirm(film.titel + ' wordt verwijderd. Weet u het zeker?')) {
+					$http({
+						method: 'delete',
+						url   : urlDeleteFilm + '/' + film.id
+					}).then(function (films) {
+						vm.films = films.data;						
+					}).catch(function (err) {
+						alert('Error: er is een fout opgetreden ' + err);
+					});
+				}
+			};
+	}
+</script>
+</body>
+</html>
