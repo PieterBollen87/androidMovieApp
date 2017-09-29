@@ -19,7 +19,6 @@
             android:layout_marginTop="0dp"
             android:layout_marginStart="0dp"
             android:gravity="center_vertical"
-            android:background="@drawable/good_will_hunting"
             android:textColor="#FFFFFF"
             android:backgroundTint="#AA000000"
             android:backgroundTintMode="src_over"/>

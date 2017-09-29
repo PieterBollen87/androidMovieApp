@@ -77,12 +77,6 @@ return movie;
 
     private void initializeDisplayContent(MovieBean film) {
 
-//        View view=(View) findViewById(R.id.filmDetailLayout);
-
-        film.getTitle().toString();
-        film.getRating().toString();
-        film.getYear().toString();
-        film.getDirector().toString();
 
         textMovieTitle.setText(film.getTitle());
         textYearField.setText(film.getYear());
