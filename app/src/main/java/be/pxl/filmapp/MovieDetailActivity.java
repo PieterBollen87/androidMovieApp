@@ -92,6 +92,7 @@ return movie;
         String afb=name.replace(" ","_");
         Context context = backgroundImageField.getContext();
         int id = context.getResources().getIdentifier(afb, "drawable", context.getPackageName());
+        backgroundImageField.setImageAlpha(80);
         backgroundImageField.setImageResource(id);
 
     }
