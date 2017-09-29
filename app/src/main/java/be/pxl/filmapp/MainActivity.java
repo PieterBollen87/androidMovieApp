@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeDisplayContent() {
         final ListView listMovies = (ListView) findViewById(R.id.list_fragment);
-        final String url = "http://192.168.100.39:3000/api/films";
+        final String url = "http://10.83.130.234:3000/api/films";
         final MainActivity context = this;
 
         JsonArrayRequest jsArrRequest = new JsonArrayRequest

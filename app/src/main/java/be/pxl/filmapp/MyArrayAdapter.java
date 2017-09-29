@@ -23,29 +23,23 @@ public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
     private final Context context;
     private final List<MovieBean> movieList;
     private List<String>nameList=new ArrayList<>();
-//    private final String[] genres;
+    private List<String>genreList=new ArrayList<>();
 
-    /* Deze constructor overnemen, de auto-generated constructors zien er anders uit.
-    *  Verander de List<String> candidates en List<String> parties naar hetgeen nodig is voor
-    *  jouw opdracht.
-    */
     MyArrayAdapter(Context context, int x,List<MovieBean> lijst) {
-        /*
-        * Het maakt niet uit welke List<String> je meegeeft als derde parameter.
-        */
+
         super(context, -1, lijst);
         this.context = context;
         this.movieList = lijst;
         for (MovieBean movie:movieList) {
             nameList.add(movie.getTitle());
         }
+        for (MovieBean movie:movieList) {
+            genreList.add(movie.getGenre());
+        }
+
 
     }
 
-    /*
-     * Deze view wordt per row opgeroepen (in dit geval dus voor elke kandidaat)
-     * position wordt met 1 opgehoogd per row die afgehandeld is
-     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -56,7 +50,7 @@ public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         ImageView genreView = (ImageView) rowView.findViewById(R.id.genre);
         TextView textView = (TextView) rowView.findViewById(R.id.name);
-        String name=nameList.get(position);
+        String name=nameList.get(position).toLowerCase();
         String afb=name.replace(" ","_");
       //  Log.d(afb,afb);
                 Context context = imageView.getContext();
@@ -69,21 +63,21 @@ public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
 
 
         //Stel een aangepaste afbeelding in, afhankelijk van de partij waar ze bijzitten
-//       if (genres[position].equals("Comedy")) {
-//            genreView.setImageResource(R.drawable.comedy);
-//        } else if (genres[position].equals("Thriller")) {
-//           genreView.setImageResource(R.drawable.thriller);
-//       } else if (genres[position].equals("Action")) {
-//           genreView.setImageResource(R.drawable.horror);
-//       } else if (genres[position].equals("Animation")) {
-//           genreView.setImageResource(R.drawable.disney);
-//       } else if (genres[position].equals("Musical")) {
-//           genreView.setImageResource(R.drawable.musical);
-//       } else if (genres[position].equals("Drama")) {
-//           genreView.setImageResource(R.drawable.drama);
-//       } else {
-//            genreView.setImageResource(R.drawable.film);
-//        }
+       if (genreList.get(position).equals("Comedy")) {
+            genreView.setImageResource(R.drawable.comedy);
+        } else if (genreList.get(position).equals("Thriller")) {
+           genreView.setImageResource(R.drawable.thriller);
+       } else if (genreList.get(position).equals("Action")) {
+           genreView.setImageResource(R.drawable.horror);
+       } else if (genreList.get(position).equals("Animation")) {
+           genreView.setImageResource(R.drawable.disney);
+       } else if (genreList.get(position).equals("Musical")) {
+           genreView.setImageResource(R.drawable.musical);
+       } else if (genreList.get(position).equals("Drama")) {
+           genreView.setImageResource(R.drawable.drama);
+       } else {
+            genreView.setImageResource(R.drawable.film);
+        }
 
 
 

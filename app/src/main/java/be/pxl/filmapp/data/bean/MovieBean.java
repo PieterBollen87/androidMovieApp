@@ -18,6 +18,8 @@ public class MovieBean implements Parcelable {
     private int year;
     private String genre;
     private double rating;
+    public MovieBean(){
+    }
 
     public MovieBean(int id, String title, String director, int year, String genre, double rating) {
         this.id = id;
@@ -28,9 +30,7 @@ public class MovieBean implements Parcelable {
         this.rating = rating;
     }
 
-    public MovieBean() {
-        // default constructor
-    }
+
 
     protected MovieBean(Parcel in) {
         id = in.readInt();
@@ -65,8 +65,8 @@ public class MovieBean implements Parcelable {
         this.director = director;
     }
 
-    public int getYear() {
-        return year;
+    public String getYear() {
+        return String.valueOf(year);
     }
 
     public void setYear(int year) {
@@ -81,8 +81,8 @@ public class MovieBean implements Parcelable {
         this.genre = genre;
     }
 
-    public double getRating() {
-        return rating;
+    public String getRating() {
+        return String.valueOf(rating);
     }
 
     public void setRating(double rating) {
@@ -91,7 +91,14 @@ public class MovieBean implements Parcelable {
 
     @Override
     public String toString() {
-        return this.getTitle();
+        return "MovieBean{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", director='" + director + '\'' +
+                ", year=" + year +
+                ", genre='" + genre + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 
     public static final Creator<MovieBean> CREATOR = new Creator<MovieBean>() {
