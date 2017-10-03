@@ -4,10 +4,10 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
-var routes = require('./router/index.js');
+const express    = require('express');        // call express
+const app        = express();                 // define our app using express
+const bodyParser = require('body-parser');
+const routes = require('./router/index.js');
 
 
 // configure app to use bodyParser()
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 3000;        // set our port
+const port = process.env.PORT || 3000;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
