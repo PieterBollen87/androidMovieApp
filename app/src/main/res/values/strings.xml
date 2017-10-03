@@ -3,4 +3,15 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_movie">MovieActivity</string>
     <string name="title_activity_movie_detail">MovieDetailActivity</string>
+
+    <string-array name="movie_genres">
+        <item>Horror</item>
+        <item>Comedy</item>
+        <item>Musical</item>
+        <item>Thriller</item>
+        <item>Animation</item>
+        <item>Action</item>
+        <item>Drama</item>
+        <item>Documentary</item>
+    </string-array>
 </resources>

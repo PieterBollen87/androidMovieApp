@@ -1,6 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/addMovieLayout"
+    android:background="#3a3725">
+
+    <ImageView
+        android:id="@+id/ImageField"
+        android:layout_width="75dp"
+        android:layout_height="100dp"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp" />
+    <TextView
+        android:id="@+id/Filmtitle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="10dp"
+        android:text="Title: "
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/titleField"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@+id/Filmtitle"
+        android:gravity="center_vertical"
+        android:text="Enter Title..."
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"/>
+
+    <Spinner
+        android:id="@+id/genre"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:tooltipText="genre"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/Filmtitle"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF" />
+
+    <RelativeLayout
+        android:id="@+id/bottomlayoutmoviedetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/genre"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/year"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Year: "
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            />
+        <EditText
+            android:id="@+id/yearField"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:text="1997"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/year"
+            />
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Desc: "
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_below="@+id/year"
+            />
+        <EditText
+            android:id="@+id/descriptionField"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="+"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/yearField"
+            android:layout_toEndOf="@+id/year"
+            android:layout_toRightOf="@+id/desc"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="browse"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="50dp"
+            android:textColor="#FFFFFF"
+            android:id="@+id/button2"
+            android:layout_below="@+id/descriptionField"
+            android:layout_alignStart="@+id/year"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="13dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="upload"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="50dp"
+            android:textColor="#FFFFFF"
+            android:id="@+id/button"
+            android:layout_alignTop="@+id/button2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+

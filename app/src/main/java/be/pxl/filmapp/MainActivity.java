@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -38,19 +40,28 @@ import be.pxl.filmapp.data.bean.MovieBean;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<MovieBean> adapterMovies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Button b = (Button) findViewById(R.id.addFilmButton);
+        b.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddMovieActivity.class);
+                startActivity(intent);
+            }
+        });
 
         initializeDisplayContent();
     }
 
     private void initializeDisplayContent() {
-        final ListView listMovies = (ListView) findViewById(R.id.list_fragment);
-        final String url = "http://10.84.134.37:3000/api/films";
+        final ScrollView listMovies = (ScrollView) findViewById(R.id.list_fragment);
+        final ListView listMovies2=(ListView) listMovies.findViewById(R.id.list_fragment2);
+        final String url = "http://10.83.130.90:3000/api/films";
         final MainActivity context = this;
         String tag_json_arry = "json_array_req";
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
@@ -63,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
                             });
                             response.toString();
                             adapterMovies = new MyArrayAdapter(context, R.layout.row_layout, movies);
-                            listMovies.setAdapter(adapterMovies);
+                            listMovies2.setAdapter(adapterMovies);
 
-                            listMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            listMovies2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
