@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import be.pxl.filmapp.data.bean.MovieBean;
@@ -31,6 +32,9 @@ import be.pxl.filmapp.data.bean.MovieBean;
  */
 
 public class AddMovieActivity extends AppCompatActivity {
+
+    String[]genreList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,21 +46,13 @@ public class AddMovieActivity extends AppCompatActivity {
     }
 
     private void initializeDisplayContent() {
-        final ListView listMovies = (ListView) findViewById(R.id.list_fragment);
-        final String url = "http://10.84.134.37:3000/api/films";
         final AddMovieActivity context = this;
+        genreList = getResources().getStringArray(R.array.movie_genres);
+        Spinner sp = (Spinner) findViewById(R.id.genre);
+        ArrayAdapter<String> myAdapter = new spinnerArrayAdapter(this, R.layout.spinner_item, genreList);
+        sp.setAdapter(myAdapter);
 
-
-        Spinner spinner = (Spinner) findViewById(R.id.genre);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.movie_genres, android.R.layout.simple_spinner_dropdown_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(R.layout.spinner_item_layout);
-// Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

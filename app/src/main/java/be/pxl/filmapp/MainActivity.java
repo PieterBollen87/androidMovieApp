@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private void initializeDisplayContent() {
         final ScrollView listMovies = (ScrollView) findViewById(R.id.list_fragment);
         final ListView listMovies2=(ListView) listMovies.findViewById(R.id.list_fragment2);
-        final String url = getResources().getString(R.string.api_url);
+        String url =getResources().getString(R.string.api_url).toString();
+        System.out.println(url);
+//        final String url = getResources().getString(R.string.api_url);
         final MainActivity context = this;
         String tag_json_arry = "json_array_req";
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
