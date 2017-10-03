@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeDisplayContent() {
         final ListView listMovies = (ListView) findViewById(R.id.list_fragment);
-        final String url = "http://10.84.134.37:3000/api/films";
+        final String url = getResources().getString(R.string.api_url);
         final MainActivity context = this;
         String tag_json_arry = "json_array_req";
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
