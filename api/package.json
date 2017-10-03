@@ -1,7 +1,7 @@
 {
-  "name": "0506_router",
+  "name": "film_api",
   "version": "1.0.0",
-  "description": "Voorbeeld express.Router()",
+  "description": "An RESTful api for CRUD operations with movies.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,10 +10,13 @@
     "Express",
     "Router"
   ],
-  "author": "Peter Kassenaar",
+  "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.2",
-    "express": "^4.13.1"
+    "express": "^4.13.1",
+    "jsonwebtoken": "^8.0.1",
+    "toid": "^1.0.1"
   }
 }
