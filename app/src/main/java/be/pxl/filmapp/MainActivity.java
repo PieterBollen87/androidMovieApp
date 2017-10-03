@@ -1,5 +1,6 @@
 package be.pxl.filmapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,10 +38,6 @@ import be.pxl.filmapp.data.bean.MovieBean;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<MovieBean> adapterMovies;
-    private Cache cache;
-    private Network network;
-    private RequestQueue queue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,23 +45,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        network = new BasicNetwork(new HurlStack()); // Set up the network to use HttpURLConnection as the HTTP client
-        queue = new RequestQueue(cache, network);
-
-        queue.start();
         initializeDisplayContent();
     }
 
     private void initializeDisplayContent() {
         final ListView listMovies = (ListView) findViewById(R.id.list_fragment);
-        final String url = "http://10.83.130.234:3000/api/films";
+        final String url = "http://10.84.134.37:3000/api/films";
         final MainActivity context = this;
-
+        String tag_json_arry = "json_array_req";
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                (url,new Response.Listener<JSONArray>(){
 
-                    @Override
+                     @Override
                     public void onResponse(JSONArray response) {
                         try {
                             final List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
@@ -93,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("ERROR", error.toString());
                     }
                 });
-
-        queue.add(jsArrRequest);
+        AppController.getInstance().addToRequestQueue(jsArrRequest, tag_json_arry);
     }
 
     @Override
