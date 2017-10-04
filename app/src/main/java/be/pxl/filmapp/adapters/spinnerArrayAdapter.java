@@ -1,4 +1,4 @@
-package be.pxl.filmapp;
+package be.pxl.filmapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import be.pxl.filmapp.R;
 
 /**
  * Created by pierre on 03/10/2017.
@@ -43,8 +45,8 @@ public class spinnerArrayAdapter extends ArrayAdapter<String> {
         View row=inflater.inflate(R.layout.spinner_item, parent, false);
         ImageView imageView = (ImageView) row.findViewById(R.id.icon);
         TextView label=(TextView)row.findViewById(R.id.name);
-        label.setText(genres[position]);
-        String afb=label.getText().toString();
+        label.setText(genres[position].toString());
+        String afb=genres[position].toString();
         Context context = imageView.getContext();
         int id = context.getResources().getIdentifier(afb, "drawable", context.getPackageName());
         imageView.setImageResource(id);

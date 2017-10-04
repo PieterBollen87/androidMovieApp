@@ -1,39 +1,40 @@
 package be.pxl.filmapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.JSONArray;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import be.pxl.filmapp.data.bean.MovieBean;
+import be.pxl.filmapp.adapters.spinnerArrayAdapter;
 
 /**
  * Created by pierre on 03/10/2017.
  */
 
-public class AddMovieActivity extends AppCompatActivity {
-
+public class AddMovieActivity extends AppCompatActivity  {
+    private static final int RESULT_LOAD_IMAGE=1;
     String[]genreList;
+    ImageView downloadImageView;
+    Button uploadButton;
+    Button browseButton;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RESULT_LOAD_IMAGE && requestCode==RESULT_OK && data!=null){
+            Uri selectedImage = data.getData();
+            downloadImageView.setImageURI(selectedImage);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +42,23 @@ public class AddMovieActivity extends AppCompatActivity {
         setContentView(R.layout.add_movie_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        downloadImageView = (ImageView) findViewById(R.id.ImageField);
+        browseButton = (Button) findViewById(R.id.browseButton);
+        uploadButton = (Button) findViewById(R.id.uploadButton);
+
+        browseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+            }
+        });
+//        uploadButton.setOnClickListener(this);
 
         initializeDisplayContent();
     }
+
+
+
 
     private void initializeDisplayContent() {
         final AddMovieActivity context = this;
@@ -53,6 +68,7 @@ public class AddMovieActivity extends AppCompatActivity {
         sp.setAdapter(myAdapter);
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -74,5 +90,6 @@ public class AddMovieActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

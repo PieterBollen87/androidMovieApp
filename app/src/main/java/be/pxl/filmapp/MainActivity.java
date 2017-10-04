@@ -1,10 +1,7 @@
 package be.pxl.filmapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,15 +14,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +25,7 @@ import org.json.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
+import be.pxl.filmapp.adapters.MyArrayAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package be.pxl.filmapp;
+package be.pxl.filmapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.pxl.filmapp.R;
 import be.pxl.filmapp.data.bean.MovieBean;
 
 /**
@@ -25,7 +26,7 @@ public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
     private List<String>nameList=new ArrayList<>();
     private List<String>genreList=new ArrayList<>();
 
-    MyArrayAdapter(Context context, int x,List<MovieBean> lijst) {
+    public MyArrayAdapter(Context context, int x, List<MovieBean> lijst) {
 
         super(context, -1, lijst);
         this.context = context;
