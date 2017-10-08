@@ -1,10 +1,7 @@
 package be.pxl.filmapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,17 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,24 +25,36 @@ import org.json.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
+import be.pxl.filmapp.adapters.MyArrayAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<MovieBean> adapterMovies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Button b = (Button) findViewById(R.id.addFilmButton);
+        b.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddMovieActivity.class);
+                startActivity(intent);
+            }
+        });
 
         initializeDisplayContent();
     }
 
     private void initializeDisplayContent() {
-        final ListView listMovies = (ListView) findViewById(R.id.list_fragment);
-        final String url = getResources().getString(R.string.api_url);
+        final ScrollView listMovies = (ScrollView) findViewById(R.id.list_fragment);
+        final ListView listMovies2=(ListView) listMovies.findViewById(R.id.list_fragment2);
+        String url =getResources().getString(R.string.api_url).toString();
+        System.out.println(url);
+//        final String url = getResources().getString(R.string.api_url);
         final MainActivity context = this;
         String tag_json_arry = "json_array_req";
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
@@ -63,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
                             });
                             response.toString();
                             adapterMovies = new MyArrayAdapter(context, R.layout.row_layout, movies);
-                            listMovies.setAdapter(adapterMovies);
+                            listMovies2.setAdapter(adapterMovies);
 
-                            listMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            listMovies2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
