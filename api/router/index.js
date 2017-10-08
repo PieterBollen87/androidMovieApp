@@ -38,6 +38,7 @@ router.post('/addfilm', (req, res) => {
 router.delete('/deletefilm/:id', (req, res) => {
     const filmid = req.params.id;
     const film = Object.keys(films).find(f => Number(films[f].id) === Number(filmid));
+
     if (!filmid || !film)
         return res.status(404).send(`Film with id ${filmid} not found!`);
 
@@ -88,9 +89,9 @@ router.post('/login', (req, res) => {
     const user = users[toId(req.body.username)];
     if (!user) return res.json({ error: 'Username is not registered.' });
 
-
     const hash = user.password;
     const username = user.username;
+
     bcrypt.compare(req.body.password, hash, (err, isMatch) => {
         if (err) return res.json({ error: 'Compare failed.' });
         if (!isMatch) return res.json({ error: 'Invalid password.' });
