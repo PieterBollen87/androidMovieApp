@@ -19,7 +19,7 @@ router.post('/addfilm', (req, res) => {
     if (!req.body.director) return res.status(500).json({ error: 'No film director' });
     if (!req.body.year) return res.status(500).json({ error: 'No film year' });
     if (!req.body.genre) return res.status(500).json({ error: 'No film genre' });
-    if (Object.keys(films).find(f => toId(films[f]).title) === toId(req.body.title))
+    if (Object.keys(films).find(f => toId(films[f].title) === toId(req.body.title)))
         return res.status(500).json({ error: 'Film already exists' });
 
     const film = {

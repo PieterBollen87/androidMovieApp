@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -36,7 +36,7 @@ public class AddMovieActivity extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
     String[] genreList;
     EditText titleEditTextField;
-    EditText yearEditTextField;
+    NumberPicker yearNumberPicker;
     EditText directorEditTextField;
     Spinner genreSpinner;
     ImageView downloadImageView;
@@ -60,11 +60,14 @@ public class AddMovieActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         titleEditTextField = (EditText) findViewById(R.id.titleField);
-        yearEditTextField = (EditText) findViewById(R.id.yearField);
+        yearNumberPicker = (NumberPicker) findViewById(R.id.yearPicker);
         directorEditTextField = (EditText) findViewById(R.id.directorField);
         downloadImageView = (ImageView) findViewById(R.id.ImageField);
         browseButton = (Button) findViewById(R.id.browseButton);
         uploadButton = (Button) findViewById(R.id.uploadButton);
+
+        yearNumberPicker.setMinValue(1950);
+        yearNumberPicker.setMaxValue(2020);
 
         browseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -118,7 +121,7 @@ public class AddMovieActivity extends AppCompatActivity {
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("title", titleEditTextField.getText().toString());
-        params.put("year", yearEditTextField.getText().toString());
+        params.put("year", yearNumberPicker.getValue() + "");
         params.put("director", directorEditTextField.getText().toString());
         params.put("genre", genreSpinner.getSelectedItem().toString());
 

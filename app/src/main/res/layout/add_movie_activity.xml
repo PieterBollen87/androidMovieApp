@@ -20,7 +20,7 @@
         android:layout_marginTop="23dp" />
     <TextView
         android:id="@+id/Filmtitle"
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         android:ems="10"
         android:gravity="center_vertical"
@@ -71,7 +71,7 @@
 
         <TextView
             android:id="@+id/year"
-            android:layout_width="50dp"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:ems="10"
             android:gravity="center_vertical"
@@ -82,37 +82,37 @@
             android:textSize="16sp"
             />
 
-        <EditText
-            android:id="@+id/yearField"
+        <NumberPicker
+            android:id="@+id/yearPicker"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="120dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_toRightOf="@+id/year"
             android:gravity="center"
             android:hint="Enter production year.."
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textColor="#FFFFFF" />
         <TextView
             android:id="@+id/director"
-            android:layout_width="50dp"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:ems="10"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="Desc: "
+            android:text="Director: "
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:layout_below="@+id/year"
+            android:layout_below="@+id/yearPicker"
             />
 
         <EditText
             android:id="@+id/directorField"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/yearField"
+            android:layout_below="@+id/yearPicker"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/year"
+            android:layout_toEndOf="@+id/director"
             android:layout_toRightOf="@+id/director"
             android:hint="Fill in the director..."
             android:gravity="center"
@@ -145,8 +145,6 @@
             android:layout_alignBottom="@+id/browseButton"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
-
-
-
+    
 </RelativeLayout>
 
