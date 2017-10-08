@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- We zetten even een dummy image om het resultaat te zien -->
     <!-- layout_height (en width voor ImageView) wordt voor ImageView en TextView gedifinieerd om een
          consistent resultaat te hebben-->
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/icon"
         android:layout_width="75dp"
         android:layout_height="100dp"
-        android:id="@+id/icon"
-        android:src="@drawable/film"/>
+        android:src="@drawable/film" />
 
     <!-- We zetten even dummytekst om het resultaat te zien -->
     <!-- toEndOf en toRightOf doen hetzelfde, toRightOf is nodig om oudere API te ondersteunen -->
@@ -28,15 +28,14 @@
         android:text="title"
         android:textSize="20sp" />
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/genre"
         android:layout_width="75dp"
         android:layout_height="100dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="0dp"
-        android:layout_toEndOf="@+id/name"
-        android:src="@drawable/comedy"
         android:layout_alignParentTop="true"
-        />
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/name"
+        android:src="@drawable/comedy" />
 
 </RelativeLayout>

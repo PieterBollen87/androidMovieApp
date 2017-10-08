@@ -52,11 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private void initializeDisplayContent() {
         final ScrollView listMovies = (ScrollView) findViewById(R.id.list_fragment);
         final ListView listMovies2=(ListView) listMovies.findViewById(R.id.list_fragment2);
-        String url =getResources().getString(R.string.api_url).toString();
-        System.out.println(url);
-//        final String url = getResources().getString(R.string.api_url);
         final MainActivity context = this;
-        String tag_json_arry = "json_array_req";
+        String url =getResources().getString(R.string.api_url).toString() + "/api/films";
+
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
                 (url,new Response.Listener<JSONArray>(){
 
@@ -89,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("ERROR", error.toString());
                     }
                 });
-        AppController.getInstance().addToRequestQueue(jsArrRequest, tag_json_arry);
+
+        VolleySingleton.getInstance(this).addToRequestQueue(jsArrRequest);
     }
 
     @Override
