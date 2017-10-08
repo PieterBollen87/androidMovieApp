@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         } catch (IOException e) {
-                            e.toString();
                             Log.d("ERROR", e.getMessage());
                         }
                     }

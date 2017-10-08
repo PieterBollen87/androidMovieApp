@@ -13,7 +13,7 @@ import be.pxl.filmapp.data.bean.MovieBean;
 public class MovieDetailActivity extends AppCompatActivity {
 
     private MovieBean movie;
-    public static final String MOVIE_OBJECT = "be.pxl.movieapp.MOVIE_OBJECT";
+    public static final String MOVIE_OBJECT = "be.pxl.filmapp.MOVIE_OBJECT";
     TextView textMovieTitle;
     TextView textYearField;
     TextView ratingField;
@@ -41,8 +41,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     private MovieBean readDisplayStateValues() {
         Intent intent = getIntent();
         movie = intent.getParcelableExtra(this.MOVIE_OBJECT);
-        movie.toString();
-
         return movie;
     }
 
@@ -59,6 +57,4 @@ public class MovieDetailActivity extends AppCompatActivity {
         backgroundImageField.setImageUrl(posterUrl, VolleySingleton.getInstance(this).getImageLoader());
 
     }
-
-
 }

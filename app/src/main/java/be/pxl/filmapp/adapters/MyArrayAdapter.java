@@ -1,12 +1,10 @@
 package be.pxl.filmapp.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -41,8 +39,6 @@ public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
         for (MovieBean movie:movieList) {
             genreList.add(movie.getGenre());
         }
-
-
     }
 
 
@@ -68,5 +64,4 @@ public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
 
         return rowView;
     }
-
 }
