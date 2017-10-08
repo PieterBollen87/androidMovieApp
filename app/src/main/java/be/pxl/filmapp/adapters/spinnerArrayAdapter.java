@@ -43,13 +43,9 @@ public class spinnerArrayAdapter extends ArrayAdapter<String> {
 
         LayoutInflater inflater=(LayoutInflater) context.getSystemService(  Context.LAYOUT_INFLATER_SERVICE );
         View row=inflater.inflate(R.layout.spinner_item, parent, false);
-        ImageView imageView = (ImageView) row.findViewById(R.id.icon);
         TextView label=(TextView)row.findViewById(R.id.name);
+
         label.setText(genres[position].toString());
-        String afb=genres[position].toString();
-        Context context = imageView.getContext();
-        int id = context.getResources().getIdentifier(afb, "drawable", context.getPackageName());
-        imageView.setImageResource(id);
 
         if (position == 0) {//Special style for dropdown header
             label.setTextColor(context.getResources().getColor(R.color.colorAccent));

@@ -87,7 +87,6 @@ public class AddMovieActivity extends AppCompatActivity {
 
 
     private void initializeDisplayContent() {
-        final AddMovieActivity context = this;
         genreList = getResources().getStringArray(R.array.movie_genres);
         genreSpinner = (Spinner) findViewById(R.id.genre);
         ArrayAdapter<String> myAdapter = new spinnerArrayAdapter(this, R.layout.spinner_item, genreList);

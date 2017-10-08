@@ -5,14 +5,6 @@
     android:layout_height="match_parent"
     android:textColor="@color/colorAccent"
     android:backgroundTint="@color/colorPrimary">
-    <!-- We zetten even een dummy image om het resultaat te zien -->
-    <!-- layout_height (en width voor ImageView) wordt voor ImageView en TextView gedifinieerd om een
-         consistent resultaat te hebben-->
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:id="@+id/icon"
-        android:src="@drawable/film"/>
 
     <!-- We zetten even dummytekst om het resultaat te zien -->
     <!-- toEndOf en toRightOf doen hetzelfde, toRightOf is nodig om oudere API te ondersteunen -->

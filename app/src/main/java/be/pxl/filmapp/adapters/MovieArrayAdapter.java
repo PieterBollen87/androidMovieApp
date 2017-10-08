@@ -20,7 +20,7 @@ import be.pxl.filmapp.data.bean.MovieBean;
  * Created by pierre on 20/09/2017.
  */
 
-public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
+public class MovieArrayAdapter extends ArrayAdapter<MovieBean> {
 
 
     private final Context context;
@@ -28,11 +28,12 @@ public class MyArrayAdapter extends ArrayAdapter<MovieBean> {
     private List<String>nameList=new ArrayList<>();
     private List<String>genreList=new ArrayList<>();
 
-    public MyArrayAdapter(Context context, int x, List<MovieBean> lijst) {
+    public MovieArrayAdapter(Context context, int x, List<MovieBean> lijst) {
 
         super(context, -1, lijst);
         this.context = context;
         this.movieList = lijst;
+
         for (MovieBean movie:movieList) {
             nameList.add(movie.getTitle());
         }

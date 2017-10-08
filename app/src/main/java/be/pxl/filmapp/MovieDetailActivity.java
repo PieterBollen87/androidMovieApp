@@ -17,7 +17,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     TextView textMovieTitle;
     TextView textYearField;
     TextView ratingField;
-    TextView descField;
     NetworkImageView backgroundImageField;
 
     @Override
@@ -29,7 +28,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         textMovieTitle = (TextView) findViewById(R.id.titleField);
         textYearField = (TextView) findViewById(R.id.yearField);
         ratingField = (TextView) findViewById(R.id.ratingField);
-        descField = (TextView) findViewById(R.id.descriptionField);
         backgroundImageField = (NetworkImageView) findViewById(R.id.backgroundImage);
 
         MovieBean Film;
@@ -49,12 +47,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         textMovieTitle.setText(film.getTitle());
         textYearField.setText(film.getYear());
         ratingField.setText(film.getRating());
-        descField.setText(film.getDirector());
         String name = film.getTitle().toLowerCase();
         String posterUrl = String.format("%s/public/images/%s.jpg", this.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
 
         backgroundImageField.setImageAlpha(80);
         backgroundImageField.setImageUrl(posterUrl, VolleySingleton.getInstance(this).getImageLoader());
-
     }
 }

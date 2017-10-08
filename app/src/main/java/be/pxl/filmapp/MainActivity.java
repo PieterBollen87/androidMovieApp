@@ -25,7 +25,7 @@ import org.json.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
-import be.pxl.filmapp.adapters.MyArrayAdapter;
+import be.pxl.filmapp.adapters.MovieArrayAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeDisplayContent() {
-        final ScrollView listMovies = (ScrollView) findViewById(R.id.list_fragment);
-        final ListView listMovies2=(ListView) listMovies.findViewById(R.id.list_fragment2);
+        final ScrollView scrollView = (ScrollView) findViewById(R.id.list_fragment);
+        final ListView listMovies = (ListView) scrollView.findViewById(R.id.list_fragment2);
         String url = getResources().getString(R.string.api_url).toString() + "/api/films";
 
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
                             final List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
                             });
                             response.toString();
-                            adapterMovies = new MyArrayAdapter(getApplicationContext(), R.layout.row_layout, movies);
-                            listMovies2.setAdapter(adapterMovies);
+                            adapterMovies = new MovieArrayAdapter(getApplicationContext(), R.layout.row_layout, movies);
+                            listMovies.setAdapter(adapterMovies);
 
-                            listMovies2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            listMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
