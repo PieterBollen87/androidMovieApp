@@ -18,6 +18,7 @@ router.post('/addfilm', (req, res) => {
     if (!req.body.title) return res.status(500).json({ error: 'No film title' });
     if (!req.body.director) return res.status(500).json({ error: 'No film director' });
     if (!req.body.year) return res.status(500).json({ error: 'No film year' });
+    if (!req.body.genre) return res.status(500).json({ error: 'No film genre' });
     if (Object.keys(films).find(f => toId(films[f]).title) === toId(req.body.title))
         return res.status(500).json({ error: 'Film already exists' });
 
@@ -25,13 +26,14 @@ router.post('/addfilm', (req, res) => {
         id: films.length + 1,
         title: req.body.title,
         director: req.body.director,
-        year: req.body.year,
+        year: parseInt(Number(req.body.year)),
+        genre: req.body.genre,
     };
 
     films.push(film);
 
     fs.writeFile('data/films.json', JSON.stringify(films), (err) => {
-        err ? res.status(500).json({ success: false }) : res.sendStatus(200);
+        err ? res.status(500).json({ success: false }) : res.status(200).json({ success: true });
     });
 });
 
@@ -45,7 +47,7 @@ router.delete('/deletefilm/:id', (req, res) => {
     films.splice(film, 1);
 
     fs.writeFile('data/films.json', JSON.stringify(films), (err) => {
-        err ? res.status(500).json({ success: false }) : res.sendStatus(200)
+        err ? res.status(500).json({ success: false }) : res.status(200).json({ success: true })
     });
 });
 

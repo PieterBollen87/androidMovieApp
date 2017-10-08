@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeDisplayContent() {
         final ScrollView listMovies = (ScrollView) findViewById(R.id.list_fragment);
         final ListView listMovies2=(ListView) listMovies.findViewById(R.id.list_fragment2);
-        final MainActivity context = this;
-        String url =getResources().getString(R.string.api_url).toString() + "/api/films";
+        String url = getResources().getString(R.string.api_url).toString() + "/api/films";
 
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
                 (url,new Response.Listener<JSONArray>(){
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                             final List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
                             });
                             response.toString();
-                            adapterMovies = new MyArrayAdapter(context, R.layout.row_layout, movies);
+                            adapterMovies = new MyArrayAdapter(getApplicationContext(), R.layout.row_layout, movies);
                             listMovies2.setAdapter(adapterMovies);
 
                             listMovies2.setOnItemClickListener(new AdapterView.OnItemClickListener() {

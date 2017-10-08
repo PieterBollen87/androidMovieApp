@@ -37,14 +37,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginStart="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="150dp"
         android:layout_toEndOf="@+id/Filmtitle"
         android:gravity="center_vertical"
-        android:text="Enter Title..."
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"/>
+        android:hint="Enter Title..."
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/genre"
@@ -81,19 +81,19 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             />
+
         <EditText
             android:id="@+id/yearField"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:text="Enter production year.."
-            android:gravity="center"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/year"
-            />
+            android:gravity="center"
+            android:hint="Enter production year.."
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
         <TextView
-            android:id="@+id/desc"
+            android:id="@+id/director"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:ems="10"
@@ -105,15 +105,19 @@
             android:textSize="16sp"
             android:layout_below="@+id/year"
             />
+
         <EditText
-            android:id="@+id/descriptionField"
+            android:id="@+id/directorField"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Fill in description..."
-            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/yearField"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/year"
-            android:layout_toRightOf="@+id/desc"/>
+            android:layout_toRightOf="@+id/director"
+            android:hint="Fill in the director..."
+            android:gravity="center"
+            android:textSize="20sp"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -123,7 +127,7 @@
             android:layout_marginRight="50dp"
             android:textColor="#FFFFFF"
             android:id="@+id/browseButton"
-            android:layout_below="@+id/descriptionField"
+            android:layout_below="@+id/directorField"
             android:layout_alignStart="@+id/year"
             android:layout_marginStart="32dp"
             android:layout_marginTop="13dp" />
