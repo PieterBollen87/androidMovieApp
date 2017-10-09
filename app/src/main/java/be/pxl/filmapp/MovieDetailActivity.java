@@ -52,6 +52,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         String posterUrl = String.format("%s/public/images/%s.jpg", this.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
 
         backgroundImageField.setImageAlpha(80);
-        backgroundImageField.setImageUrl(posterUrl, VolleySingleton.getInstance(this).getImageLoader());
+        backgroundImageField.setImageUrl(posterUrl, VolleySingleton.getInstance(getApplicationContext()).getImageLoader());
     }
 }

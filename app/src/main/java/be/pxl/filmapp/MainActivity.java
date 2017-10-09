@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        VolleySingleton.getInstance(this).addToRequestQueue(jsArrRequest);
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsArrRequest);
     }
 
     @Override

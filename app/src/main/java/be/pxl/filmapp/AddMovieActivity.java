@@ -66,6 +66,7 @@ public class AddMovieActivity extends AppCompatActivity {
                     break;
             }
         } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
             Log.e("DEBUG", "Exception in onActivityResult : " + e.getMessage());
         }
     }
@@ -148,6 +149,7 @@ public class AddMovieActivity extends AppCompatActivity {
                     JSONObject result = new JSONObject(resultResponse);
                     Toast.makeText(getApplicationContext(), "Movie added!", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
@@ -180,7 +182,7 @@ public class AddMovieActivity extends AppCompatActivity {
             }
         };
 
-        VolleySingleton.getInstance(getBaseContext()).addToRequestQueue(multipartRequest);
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(multipartRequest);
     }
 }
 
