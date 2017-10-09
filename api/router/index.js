@@ -3,24 +3,35 @@
 const router = require('express').Router();
 const fs = require('fs');
 const bcrypt = require('bcrypt-nodejs');
+const multer = require('multer')
 const jwt = require('jsonwebtoken');
 const toId = require('toid');
 
 const films = require('../data/films.json');
 const users = require('../data/users.json');
-
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/images/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${file.originalname}.jpg`)
+    }
+})
+const upload = multer({ storage: storage })
 
 router.get('/films', (req, res) => {
     res.json(films);
 });
 
-router.post('/addfilm', (req, res) => {
+router.post('/addfilm', upload.single('poster'), (req, res) => {
     if (!req.body.title) return res.status(500).json({ error: 'No film title' });
     if (!req.body.director) return res.status(500).json({ error: 'No film director' });
     if (!req.body.year) return res.status(500).json({ error: 'No film year' });
     if (!req.body.genre) return res.status(500).json({ error: 'No film genre' });
     if (Object.keys(films).find(f => toId(films[f].title) === toId(req.body.title)))
         return res.status(500).json({ error: 'Film already exists' });
+
+    console.log(req.file);
 
     const film = {
         id: films.length + 1,

@@ -8,29 +8,6 @@
     android:id="@+id/addMovieLayout"
     android:background="#3a3725">
     <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-    <ImageView
-        android:id="@+id/ImageField"
-        android:layout_width="75dp"
-        android:layout_height="100dp"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp" />
-    <TextView
-        android:id="@+id/Filmtitle"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:gravity="center_vertical"
-        android:layout_marginTop="150dp"
-        android:layout_marginLeft="10dp"
-        android:text="Title: "
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/titleField"
@@ -40,7 +17,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="150dp"
-        android:layout_toEndOf="@+id/Filmtitle"
         android:gravity="center_vertical"
         android:hint="Enter Title..."
         android:textColor="#FFFFFF"
@@ -48,12 +24,12 @@
 
     <Spinner
         android:id="@+id/genre"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:tooltipText="genre"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
-        android:layout_below="@+id/Filmtitle"
+        android:layout_below="@+id/titleField"
         android:gravity="center_vertical"
         android:textSize="20sp"
         android:textColor="@color/colorAccent"
@@ -69,42 +45,15 @@
         android:layout_below="@+id/genre"
         android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/year"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="Year: "
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            />
-
         <NumberPicker
             android:id="@+id/yearPicker"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@+id/year"
             android:gravity="center"
             android:hint="Enter production year.."
             android:textColor="#FFFFFF" />
-        <TextView
-            android:id="@+id/director"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="Director: "
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:layout_below="@+id/yearPicker"
-            />
 
         <EditText
             android:id="@+id/directorField"
@@ -112,8 +61,6 @@
             android:layout_height="50dp"
             android:layout_below="@+id/yearPicker"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/director"
-            android:layout_toRightOf="@+id/director"
             android:hint="Fill in the director..."
             android:gravity="center"
             android:textSize="20sp"/>
@@ -144,6 +91,11 @@
             android:layout_alignBaseline="@+id/browseButton"
             android:layout_alignBottom="@+id/browseButton"
             android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:id="@+id/downloadImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
     </RelativeLayout>
 
 </RelativeLayout>

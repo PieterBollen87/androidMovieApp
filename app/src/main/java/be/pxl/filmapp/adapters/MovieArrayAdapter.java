@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.pxl.filmapp.R;
-import be.pxl.filmapp.VolleySingleton;
+import be.pxl.filmapp.utility.VolleySingleton;
 import be.pxl.filmapp.data.bean.MovieBean;
 
 /**
@@ -41,7 +41,6 @@ public class MovieArrayAdapter extends ArrayAdapter<MovieBean> {
             genreList.add(movie.getGenre());
         }
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

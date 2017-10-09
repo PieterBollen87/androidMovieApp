@@ -27,6 +27,7 @@ import java.util.List;
 
 import be.pxl.filmapp.adapters.MovieArrayAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
+import be.pxl.filmapp.utility.VolleySingleton;
 
 public class MainActivity extends AppCompatActivity {
 

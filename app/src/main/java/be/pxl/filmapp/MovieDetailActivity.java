@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 
 import be.pxl.filmapp.data.bean.MovieBean;
+import be.pxl.filmapp.utility.VolleySingleton;
 
 public class MovieDetailActivity extends AppCompatActivity {
 

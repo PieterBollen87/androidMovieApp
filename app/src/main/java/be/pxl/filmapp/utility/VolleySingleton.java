@@ -1,4 +1,4 @@
-package be.pxl.filmapp;
+package be.pxl.filmapp.utility;
 
 import android.content.Context;
 import android.graphics.Bitmap;
