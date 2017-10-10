@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="be.pxl.filmapp.MainActivity">
     <item
+        android:id="@+id/action_register"
+        android:orderInCategory="100"
+        android:title="@string/action_register"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
