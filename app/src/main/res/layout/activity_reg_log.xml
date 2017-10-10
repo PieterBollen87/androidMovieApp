@@ -12,7 +12,7 @@
 
     <fragment android:name="be.pxl.filmapp.RegisterFragment"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:id="@+id/register_container"
         android:layout_below="@id/login_container"
         android:layout_weight="1"/>

@@ -18,12 +18,5 @@ public class RegLogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reg_log);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        Button b = (Button) findViewById(R.id.addFilmButton);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AddMovieActivity.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 }

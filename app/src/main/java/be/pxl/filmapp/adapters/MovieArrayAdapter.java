@@ -52,14 +52,17 @@ public class MovieArrayAdapter extends ArrayAdapter<MovieBean> {
         // Haal ImageView en TextView op, deze komen uit row_layout
         NetworkImageView posterImageView = (NetworkImageView) rowView.findViewById(R.id.icon);
         NetworkImageView genreImageView = (NetworkImageView) rowView.findViewById(R.id.genre);
+        NetworkImageView watcheyeImageView = (NetworkImageView) rowView.findViewById(R.id.watch);
         TextView textView = (TextView) rowView.findViewById(R.id.name);
 
         String name = nameList.get(position).toLowerCase();
         String posterUrl = String.format("%s/public/images/%s.jpg", rowView.getResources().getString(R.string.api_url).toString(), name.replace(" ","_"));
         String genreUrl = String.format("%s/public/images/%s.png", rowView.getResources().getString(R.string.api_url).toString(), genreList.get(position));
+        String watchUrl = String.format("%s/public/images/%s.png", rowView.getResources().getString(R.string.api_url).toString(), "watcheye");
 
         posterImageView.setImageUrl(posterUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
         genreImageView.setImageUrl(genreUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
+        watcheyeImageView.setImageUrl(watchUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
         textView.setText(name);
 
         return rowView;
