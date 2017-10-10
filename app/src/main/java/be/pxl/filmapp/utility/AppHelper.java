@@ -8,10 +8,6 @@ import android.support.v4.content.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
 
-/**
- * Created by Sacha on 9-10-2017.
- */
-
 public class AppHelper {
 
     /**
