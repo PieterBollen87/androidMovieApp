@@ -88,6 +88,11 @@ public class AddMovieActivity extends AppCompatActivity {
         yearNumberPicker.setMinValue(1950);
         yearNumberPicker.setMaxValue(2020);
 
+        genreList = getResources().getStringArray(R.array.movie_genres);
+        genreSpinner = (Spinner) findViewById(R.id.genre);
+        ArrayAdapter<String> myAdapter = new spinnerArrayAdapter(this, R.layout.spinner_item, genreList);
+        genreSpinner.setAdapter(myAdapter);
+
         browseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -148,10 +153,13 @@ public class AddMovieActivity extends AppCompatActivity {
                 try {
                     JSONObject result = new JSONObject(resultResponse);
                     Toast.makeText(getApplicationContext(), "Movie added!", Toast.LENGTH_SHORT).show();
+
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
+                Intent i = new Intent(AddMovieActivity.this,MainActivity.class);
+                startActivity(i);
             }
         }, new Response.ErrorListener() {
             @Override
