@@ -28,15 +28,29 @@
         android:textColor="#000000"
         android:text="title"
         android:textSize="20sp" />
-
+<LinearLayout
+    android:layout_width="75dp"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:layout_toEndOf="@+id/name">
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/genre"
-        android:layout_width="75dp"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="37dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/name"
-        android:src="@drawable/comedy" />
+        android:src="@drawable/comedy"
+        android:layout_gravity="center"/>
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/watch"
+        android:layout_width="37dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/comedy"
+        android:layout_gravity="center"/>
+</LinearLayout>
+
 
 </RelativeLayout>
