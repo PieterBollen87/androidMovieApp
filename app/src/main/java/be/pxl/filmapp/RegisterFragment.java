@@ -59,6 +59,9 @@ public class RegisterFragment extends Fragment {
                     if ((password.getText().toString()).equals(confPassword.getText().toString())) {
                         registerUser();
                     }
+                    else {
+                        Toast.makeText(getContext(), "Your Passwords don't match.", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
