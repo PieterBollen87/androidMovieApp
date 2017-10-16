@@ -1,74 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/filmDetailLayout"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="be.pxl.filmapp.MovieDetailActivity"
-    tools:showIn="@layout/activity_movie_detail">
+    android:fillViewport="true"
+    android:background="#000000">
 
-
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/backgroundImage"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:backgroundTint="#AA000000"
-        android:backgroundTintMode="src_over"
-        android:gravity="center_vertical"
-        android:textColor="#FFFFFF" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/Filmtitle"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="150dp"
-        android:ems="10"
-        android:gravity="center_vertical"
-        android:text="Title: "
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/titleField"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="150dp"
-        android:layout_toEndOf="@+id/Filmtitle"
-        android:gravity="center_vertical"
-        android:text="Titel komt hier"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="#AA000000"
+            android:backgroundTintMode="src_over"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/genre"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="50dp">
 
         <TextView
+            android:id="@+id/titleField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
             android:id="@+id/rating"
+            android:layout_below="@+id/titleField"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
             android:gravity="center_vertical"
             android:text="Rating: "
             android:textColor="#FFFFFF"
@@ -78,21 +49,17 @@
             android:id="@+id/ratingField"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/rating"
+            android:layout_below="@+id/titleField"
             android:gravity="center"
-            android:text="9/10"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/year"
+            android:layout_below="@+id/rating"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/rating"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
             android:gravity="center_vertical"
             android:text="Year: "
             android:textColor="#FFFFFF"
@@ -102,22 +69,21 @@
             android:id="@+id/yearField"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/ratingField"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/year"
+            android:layout_toRightOf="@+id/rating"
+            android:layout_below="@+id/rating"
             android:gravity="center"
-            android:text="1997"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-        <Button
-            android:id="@+id/trailerButton"
-            android:layout_width="wrap_content"
+            android:textSize="16sp" />
+
+
+        <FrameLayout
+            android:id="@+id/trailerFragmentContainer"
+            android:layout_below="@+id/year"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trailer"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_weight="1"/>
+        </RelativeLayout>
 
     </RelativeLayout>
-
-</RelativeLayout>
-
+</ScrollView>

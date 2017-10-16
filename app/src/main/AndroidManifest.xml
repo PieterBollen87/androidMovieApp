@@ -35,10 +35,6 @@
         <activity
             android:name=".RegLogActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".TrailerActivity"
-            android:label="@string/title_activity_trailer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

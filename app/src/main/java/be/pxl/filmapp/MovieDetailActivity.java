@@ -1,5 +1,8 @@
 package be.pxl.filmapp;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,33 +36,33 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingField = (TextView) findViewById(R.id.ratingField);
         backgroundImageField = (NetworkImageView) findViewById(R.id.backgroundImage);
 
-        MovieBean Film;
-        Film = readDisplayStateValues();
-        initializeDisplayContent(Film);
+        readDisplayStateValues();
+        initializeDisplayContent();
 
-        Button trailerButton = (Button) findViewById(R.id.trailerButton);
-        trailerButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class);
-                intent.putExtra(TrailerActivity.MOVIE_OBJECT, movie);
-                startActivity(intent);
-            }
-        });
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Bundle args = new Bundle();
+        args.putString(TrailerFragment.TRAILER_STRING, movie.getTrailer());
+
+        TrailerFragment trailerFragment = new TrailerFragment();
+        trailerFragment.setArguments(args);
+        fragmentTransaction.add(R.id.trailerFragmentContainer, trailerFragment);
+        fragmentTransaction.commit();
 
     }
 
-    private MovieBean readDisplayStateValues() {
+    private void readDisplayStateValues() {
         Intent intent = getIntent();
         movie = intent.getParcelableExtra(this.MOVIE_OBJECT);
-        return movie;
     }
 
-    private void initializeDisplayContent(MovieBean film) {
+    private void initializeDisplayContent() {
 
-        textMovieTitle.setText(film.getTitle());
-        textYearField.setText(film.getYear());
-        ratingField.setText(film.getRating());
-        String name = film.getTitle().toLowerCase();
+        textMovieTitle.setText(movie.getTitle());
+        textYearField.setText(movie.getYear());
+        ratingField.setText(movie.getRating());
+        String name = movie.getTitle().toLowerCase();
         String posterUrl = String.format("%s/public/images/%s.jpg", this.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
 
         backgroundImageField.setImageAlpha(80);
