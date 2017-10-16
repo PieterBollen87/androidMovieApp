@@ -31,8 +31,6 @@ router.post('/addfilm', upload.single('poster'), (req, res) => {
     if (Object.keys(films).find(f => toId(films[f].title) === toId(req.body.title)))
         return res.status(500).json({ error: 'Film already exists' });
 
-    console.log(req.file);
-
     const film = {
         id: films.length + 1,
         title: req.body.title,

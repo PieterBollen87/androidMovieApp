@@ -18,19 +18,20 @@ public class MovieBean implements Parcelable {
     private int year;
     private String genre;
     private double rating;
+    private String trailer;
+
     public MovieBean(){
     }
 
-    public MovieBean(int id, String title, String director, int year, String genre, double rating) {
+    public MovieBean(int id, String title, String director, int year, String genre, double rating, String trailer) {
         this.id = id;
         this.title = title;
         this.director = director;
         this.year = year;
         this.genre = genre;
         this.rating = rating;
+        this.trailer = trailer;
     }
-
-
 
     protected MovieBean(Parcel in) {
         id = in.readInt();
@@ -38,7 +39,8 @@ public class MovieBean implements Parcelable {
         director = in.readString();
         year = in.readInt();
         genre = in.readString();
-        rating = in.readInt();
+        rating = in.readDouble();
+        trailer = in.readString();
     }
 
     public int getId() {
@@ -89,16 +91,12 @@ public class MovieBean implements Parcelable {
         this.rating = rating;
     }
 
-    @Override
-    public String toString() {
-        return "MovieBean{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", director='" + director + '\'' +
-                ", year=" + year +
-                ", genre='" + genre + '\'' +
-                ", rating=" + rating +
-                '}';
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
     }
 
     public static final Creator<MovieBean> CREATOR = new Creator<MovieBean>() {
@@ -114,6 +112,19 @@ public class MovieBean implements Parcelable {
     };
 
     @Override
+    public String toString() {
+        return "MovieBean{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", director='" + director + '\'' +
+                ", year=" + year +
+                ", genre='" + genre + '\'' +
+                ", rating=" + rating +
+                ", trailer=" + trailer +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -126,6 +137,7 @@ public class MovieBean implements Parcelable {
         parcel.writeInt(year);
         parcel.writeString(genre);
         parcel.writeDouble(rating);
+        parcel.writeString(trailer);
     }
 }
 

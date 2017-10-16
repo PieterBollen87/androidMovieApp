@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -34,6 +36,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         MovieBean Film;
         Film = readDisplayStateValues();
         initializeDisplayContent(Film);
+
+        Button trailerButton = (Button) findViewById(R.id.trailerButton);
+        trailerButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class);
+                intent.putExtra(TrailerActivity.MOVIE_OBJECT, movie);
+                startActivity(intent);
+            }
+        });
 
     }
 
