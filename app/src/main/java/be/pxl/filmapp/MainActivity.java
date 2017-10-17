@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,14 +28,14 @@ import org.json.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
-import be.pxl.filmapp.adapters.MovieArrayAdapter;
+import be.pxl.filmapp.adapters.MovieListAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayAdapter<MovieBean> adapterMovies;
+    private MovieListAdapter adapterMovies;
 
 
     @Override
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         // Add Text Change Listener to EditText
         EditText filterEdiText = (EditText) findViewById(R.id.filter);
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeDisplayContent() {
         final ScrollView scrollView = (ScrollView) findViewById(R.id.list_fragment);
-        final ListView listMovies = (ListView) scrollView.findViewById(R.id.list_fragment2);
+        final ListView listViewMovies = (ListView) scrollView.findViewById(R.id.list_fragment2);
         String url = getResources().getString(R.string.api_url).toString() + "/api/films";
 
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
@@ -90,15 +88,14 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             final List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
                             });
-                            response.toString();
-                            adapterMovies = new MovieArrayAdapter(getApplicationContext(), R.layout.row_layout, movies);
-                            listMovies.setAdapter(adapterMovies);
+                            adapterMovies = new MovieListAdapter(getApplicationContext(), movies);
+                            listViewMovies.setAdapter(adapterMovies);
 
-                            listMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            listViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
-                                    intent.putExtra(MovieDetailActivity.MOVIE_OBJECT, movies.get(position));
+                                    intent.putExtra(MovieDetailActivity.MOVIE_OBJECT, adapterMovies.getFilteredData().get(position));
                                     startActivity(intent);
                                 }
                             });
