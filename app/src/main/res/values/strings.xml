@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_register">Login/Register</string>
     <string name="logout_action">Logout</string>
+    <string name="filter">Filter: </string>
     <string name="title_activity_movie">MovieActivity</string>
     <string name="title_activity_movie_detail">MovieDetailActivity</string>
 

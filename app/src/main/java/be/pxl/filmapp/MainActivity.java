@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<MovieBean> adapterMovies;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,4 +126,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }
