@@ -9,6 +9,7 @@ const toId = require('toid');
 
 const films = require('../data/films.json');
 const users = require('../data/users.json');
+const userMovies = require('../data/usermovies.json');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images/')
@@ -38,6 +39,7 @@ router.post('/addfilm', upload.single('poster'), (req, res) => {
         director: req.body.director,
         year: parseInt(Number(req.body.year)),
         genre: req.body.genre,
+        trailer: req.body.trailer,
     };
 
     films.push(film);
@@ -110,6 +112,36 @@ router.post('/login', (req, res) => {
         const token = jwt.sign({ username }, 'jwt secret token! can be anything', { expiresIn: '1d' });
         res.json({ token });
     });
+});
+
+router.post('/addusermovie', (req, res) => {
+    if (!req.body.username) return res.status(500).json({ error: 'No username' });
+    if (!req.body.filmid || isNaN(Number(req.body.filmid))) return res.status(500).json({ error: 'Incorrect film id' });
+
+    const getUser = () => userMovies[toId(req.body.username)];
+
+    if (getUser() && getUser().movies && getUser().movies.includes(req.body.filmid))
+        return res.status(500).json({ error: 'User already has movie added' });
+
+    if (!getUser()) {
+        userMovies[toId(req.body.username)] = {
+            movies: [],
+        }
+    }
+
+    getUser().movies.push(req.body.filmid);
+
+    fs.writeFile('data/usermovies.json', JSON.stringify(userMovies), (err) => {
+        err ? res.status(500).json({ success: false }) : res.status(200).json({ success: true });
+    });
+});
+
+router.get('/usermovies/:username', (req, res) => {
+    const userId = toId(req.params.username);
+    const response = userMovies[userId] ? userMovies[userId].movies.map(m => films[m]) : [];
+
+    res.json(response);
+
 });
 
 module.exports = router;
