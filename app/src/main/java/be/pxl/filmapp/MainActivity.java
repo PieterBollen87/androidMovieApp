@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,7 +28,10 @@ import java.util.List;
 
 import be.pxl.filmapp.adapters.MovieArrayAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
+import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,9 +97,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(UserSession.USER_NAME=="") {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.logged_in_menu, menu);
+            menu.findItem(R.id.username).setTitle(UserSession.USER_NAME);
+        }
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -103,6 +114,13 @@ public class MainActivity extends AppCompatActivity {
         if (item.getTitle().equals(register)) {
             Intent intent = new Intent(this,RegLogActivity.class);
             startActivity(intent);
+        }
+        if(item.getTitle().equals("Logout")){
+            UserSession.USER_NAME="";
+            Toast.makeText(this,"Logout successful", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
         }
         return true;
     }
