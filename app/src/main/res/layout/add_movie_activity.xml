@@ -65,6 +65,16 @@
             android:gravity="center"
             android:textSize="20sp"/>
 
+        <EditText
+            android:id="@+id/trailerField"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/directorField"
+            android:layout_marginTop="10dp"
+            android:hint="Fill in the youtube id..."
+            android:gravity="center"
+            android:textSize="20sp"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -74,7 +84,7 @@
             android:layout_marginRight="50dp"
             android:textColor="#FFFFFF"
             android:id="@+id/browseButton"
-            android:layout_below="@+id/directorField"
+            android:layout_below="@+id/trailerField"
             android:layout_alignStart="@+id/year"
             android:layout_marginStart="32dp"
             android:layout_marginTop="13dp" />

@@ -44,6 +44,7 @@ public class AddMovieActivity extends AppCompatActivity {
     EditText titleEditTextField;
     NumberPicker yearNumberPicker;
     EditText directorEditTextField;
+    EditText trailerEditTextField;
     Spinner genreSpinner;
     Button uploadButton;
     Button browseButton;
@@ -81,6 +82,7 @@ public class AddMovieActivity extends AppCompatActivity {
         titleEditTextField = (EditText) findViewById(R.id.titleField);
         yearNumberPicker = (NumberPicker) findViewById(R.id.yearPicker);
         directorEditTextField = (EditText) findViewById(R.id.directorField);
+        trailerEditTextField = (EditText) findViewById(R.id.trailerField);
         browseButton = (Button) findViewById(R.id.browseButton);
         uploadButton = (Button) findViewById(R.id.uploadButton);
         downloadImageView = (ImageView) findViewById(R.id.downloadImageView);
@@ -176,6 +178,7 @@ public class AddMovieActivity extends AppCompatActivity {
                 params.put("year", yearNumberPicker.getValue() + "");
                 params.put("director", directorEditTextField.getText().toString());
                 params.put("genre", genreSpinner.getSelectedItem().toString());
+                params.put("trailer", trailerEditTextField.getText().toString());
                 return params;
             }
 
