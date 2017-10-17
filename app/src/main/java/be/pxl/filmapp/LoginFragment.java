@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
 /**
@@ -60,8 +61,11 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         String resultResponse = new String(response);
-//                            JSONObject result = new JSONObject(resultResponse);
-                            Toast.makeText(getContext(), resultResponse, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "welcome "+usernamefield.getText().toString()+", enjoy your stay.", Toast.LENGTH_LONG).show();
+                        UserSession.USER_NAME=usernamefield.getText().toString();
+                        UserSession.TOKEN=resultResponse;
+                        Intent i = new Intent(getActivity(), MainActivity.class);
+                        startActivity(i);
                     }
                 }, new Response.ErrorListener() {
             @Override

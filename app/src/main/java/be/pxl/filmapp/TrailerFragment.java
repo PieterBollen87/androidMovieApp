@@ -40,6 +40,6 @@ public class TrailerFragment extends Fragment implements YouTubePlayer.OnInitial
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "fail", Toast.LENGTH_LONG).show();
     }
 }
