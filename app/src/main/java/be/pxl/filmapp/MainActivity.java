@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -31,12 +34,9 @@ import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
-import static java.security.AccessController.getContext;
-
 public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<MovieBean> adapterMovies;
-
 
 
     @Override
@@ -53,7 +53,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // Add Text Change Listener to EditText
+        EditText filterEdiText = (EditText) findViewById(R.id.filter);
+        filterEdiText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Call back the Adapter with current character to Filter
+                adapterMovies.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         initializeDisplayContent();
+
     }
 
     private void initializeDisplayContent() {
@@ -62,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
         String url = getResources().getString(R.string.api_url).toString() + "/api/films";
 
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
-                (url,new Response.Listener<JSONArray>(){
+                (url, new Response.Listener<JSONArray>() {
 
-                     @Override
+                    @Override
                     public void onResponse(JSONArray response) {
                         try {
                             final List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
@@ -99,10 +120,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if(UserSession.USER_NAME=="") {
+        if (UserSession.USER_NAME == "") {
             getMenuInflater().inflate(R.menu.menu_main, menu);
-        }
-        else{
+        } else {
             getMenuInflater().inflate(R.menu.logged_in_menu, menu);
             menu.findItem(R.id.username).setTitle(UserSession.USER_NAME);
         }
@@ -112,14 +132,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String register="Login/Register";
+        String register = "Login/Register";
         if (item.getTitle().equals(register)) {
-            Intent intent = new Intent(this,RegLogActivity.class);
+            Intent intent = new Intent(this, RegLogActivity.class);
             startActivity(intent);
         }
-        if(item.getTitle().equals("Logout")){
-            UserSession.USER_NAME="";
-            Toast.makeText(this,"Logout successful", Toast.LENGTH_LONG).show();
+        if (item.getTitle().equals("Logout")) {
+            UserSession.USER_NAME = "";
+            Toast.makeText(this, "Logout successful", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 

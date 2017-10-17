@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -20,13 +21,14 @@ import be.pxl.filmapp.data.bean.MovieBean;
  * Created by pierre on 20/09/2017.
  */
 
-public class MovieArrayAdapter extends ArrayAdapter<MovieBean> {
+public class MovieArrayAdapter extends ArrayAdapter<MovieBean> implements Filterable {
 
 
     private final Context context;
-    private final List<MovieBean> movieList;
+    private List<MovieBean> movieList;
     private List<String>nameList=new ArrayList<>();
     private List<String>genreList=new ArrayList<>();
+    private List<MovieBean> filteredData;
 
     public MovieArrayAdapter(Context context, int x, List<MovieBean> lijst) {
 
