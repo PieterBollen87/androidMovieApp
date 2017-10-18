@@ -103,7 +103,7 @@ public class MovieListAdapter extends BaseAdapter implements Filterable {
                     constraint = constraint.toString().toLowerCase();
                     for (int i = 0; i < originalValues.size(); i++) {
                         String data = originalValues.get(i).getTitle();
-                        if (data.toLowerCase().startsWith(constraint.toString())) {
+                        if (data.toLowerCase().contains(constraint)) {
                             FilteredArrList.add(originalValues.get(i));
                         }
                     }
