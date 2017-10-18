@@ -18,14 +18,13 @@ import be.pxl.filmapp.R;
 import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.utility.VolleySingleton;
 
-public class MovieListAdapter extends BaseAdapter implements Filterable {
+public class MovieAdapter extends BaseAdapter implements Filterable {
 
     private List<MovieBean> originalValues = null;
     private List<MovieBean> filteredData = null;
     private LayoutInflater inflater;
 
-    public MovieListAdapter(Context context, List<MovieBean> movieList) {
-
+    public MovieAdapter(Context context, List<MovieBean> movieList) {
         filteredData = movieList;
         inflater = LayoutInflater.from(context);
     }
@@ -51,27 +50,36 @@ public class MovieListAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
 
-        // Stel de custom row_layout in
-        View rowView = inflater.inflate(R.layout.row_layout, parent, false);
+        if (convertView == null) {
+            holder = new ViewHolder();
 
-        // Haal ImageView en TextView op, deze komen uit row_layout
-        NetworkImageView posterImageView = (NetworkImageView) rowView.findViewById(R.id.icon);
-        NetworkImageView genreImageView = (NetworkImageView) rowView.findViewById(R.id.genre);
-        NetworkImageView watcheyeImageView = (NetworkImageView) rowView.findViewById(R.id.watch);
-        TextView textView = (TextView) rowView.findViewById(R.id.name);
+            // Stel de custom row_layout in
+            convertView = inflater.inflate(R.layout.row_layout, parent, false);
+
+            // Haal ImageView en TextView op, deze komen uit row_layout
+            holder.posterImageView = (NetworkImageView) convertView.findViewById(R.id.icon);
+            holder.genreImageView = (NetworkImageView) convertView.findViewById(R.id.genre);
+            holder.watcheyeImageView = (NetworkImageView) convertView.findViewById(R.id.watch);
+            holder.textView = (TextView) convertView.findViewById(R.id.name);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
         String name = filteredData.get(position).getTitle().toLowerCase();
-        String posterUrl = String.format("%s/public/images/%s.jpg", rowView.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
-        String genreUrl = String.format("%s/public/images/%s.png", rowView.getResources().getString(R.string.api_url).toString(), filteredData.get(position).getGenre());
-        String watchUrl = String.format("%s/public/images/%s.png", rowView.getResources().getString(R.string.api_url).toString(), "watcheye");
+        String posterUrl = String.format("%s/public/images/%s.jpg", convertView.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
+        String genreUrl = String.format("%s/public/images/%s.png", convertView.getResources().getString(R.string.api_url).toString(), filteredData.get(position).getGenre());
+        String watchUrl = String.format("%s/public/images/%s.png", convertView.getResources().getString(R.string.api_url).toString(), "watcheye");
 
-        posterImageView.setImageUrl(posterUrl, VolleySingleton.getInstance(inflater.getContext()).getImageLoader());
-        genreImageView.setImageUrl(genreUrl, VolleySingleton.getInstance(inflater.getContext()).getImageLoader());
-        watcheyeImageView.setImageUrl(watchUrl, VolleySingleton.getInstance(inflater.getContext()).getImageLoader());
-        textView.setText(name);
+        holder.posterImageView.setImageUrl(posterUrl, VolleySingleton.getInstance(inflater.getContext()).getImageLoader());
+        holder.genreImageView.setImageUrl(genreUrl, VolleySingleton.getInstance(inflater.getContext()).getImageLoader());
+        holder.watcheyeImageView.setImageUrl(watchUrl, VolleySingleton.getInstance(inflater.getContext()).getImageLoader());
+        holder.textView.setText(name);
 
-        return rowView;
+        return convertView;
     }
 
     @Override
@@ -115,5 +123,12 @@ public class MovieListAdapter extends BaseAdapter implements Filterable {
             }
         };
         return filter;
+    }
+
+    static class ViewHolder {
+        NetworkImageView posterImageView;
+        NetworkImageView genreImageView;
+        NetworkImageView watcheyeImageView;
+        TextView textView;
     }
 }

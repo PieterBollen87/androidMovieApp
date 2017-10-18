@@ -28,14 +28,14 @@ import org.json.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
-import be.pxl.filmapp.adapters.MovieListAdapter;
+import be.pxl.filmapp.adapters.MovieAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MovieListAdapter adapterMovies;
+    private MovieAdapter adapterMovies;
 
 
     @Override
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             final List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
                             });
-                            adapterMovies = new MovieListAdapter(getApplicationContext(), movies);
+                            adapterMovies = new MovieAdapter(getApplicationContext(), movies);
                             listViewMovies.setAdapter(adapterMovies);
 
                             listViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
