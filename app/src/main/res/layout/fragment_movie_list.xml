@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="be.pxl.filmapp.MovieListFragment">
+
+    <!--<ScrollView android:id="@+id/list_fragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="2"-->
+        <!--android:focusable="true"-->
+
+        <!--android:gravity="top"-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android">-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:textSize="10pt"
+                    android:textColor="@color/colorAccent"
+
+                    android:text="@string/filter"/>
+
+                <EditText
+                    android:id="@+id/filter"
+                    android:layout_width="179dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.91"
+                    android:nextFocusUp="@id/filter"
+                    android:nextFocusLeft="@id/filter"
+                    />
+
+            </LinearLayout>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/list_fragment2" />
+
+
+        </LinearLayout>
+    <!--</ScrollView>-->
+</FrameLayout>
