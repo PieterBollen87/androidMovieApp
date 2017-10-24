@@ -4,6 +4,8 @@
     <string name="action_register">Login/Register</string>
     <string name="logout_action">Logout</string>
     <string name="filter">Filter: </string>
+    <string name="drawer_open">Open </string>
+    <string name="drawer_close">Close </string>
     <string name="title_activity_movie">MovieActivity</string>
     <string name="title_activity_movie_detail">MovieDetailActivity</string>
 
@@ -17,6 +19,15 @@
         <item>Drama</item>
         <item>War</item>
         <item>Documentary</item>
+    </string-array>
+    <string-array name="menuOptions">
+        <item>Home</item>
+        <item>Login</item>
+        <item>Register</item>
+        <item>Add</item>
+        <item>My Lists</item>
+        <item>Settings</item>
+        <item>Logout</item>
     </string-array>
 
     <string name="title_activity_trailer">TrailerActivity</string>
