@@ -9,3 +9,4 @@
 .externalNativeBuild
 app/src/main/res/values/properties.xml
 api/data/users.json
+app/google-services.json
