@@ -55,10 +55,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        android.app.FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-
         menuOptions = getResources().getStringArray(R.array.menuOptions);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -72,12 +68,13 @@ public class MainActivity extends Activity {
 
 
 
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.MainFragmentContainer, listFragment);
         fragmentTransaction.commit();
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        Button b = (Button) findViewById(R.id.addFilmButton);
+
         retrieveLoginSession();
 
         mTitle = mDrawerTitle = getTitle();
@@ -125,6 +122,27 @@ public class MainActivity extends Activity {
     }
 
     private void selectItem(int position) {
+        Fragment fragment= new Fragment();
+        switch(position){
+            case 0: fragment=new MovieListFragment();
+                break;
+            case 1: fragment= new LoginFragment();
+                break;
+            case 2: fragment= new RegisterFragment();
+                break;
+//            case 3: fragment= new LoginFragment();
+//                break;
+//            case 4: fragment= new LoginFragment();
+//                break;
+            default: fragment= new MovieListFragment();
+        }
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.MainFragmentContainer, fragment);
+        fragmentTransaction.commit();
+
+
         // Create a new fragment and specify the planet to show based on position
 //        Fragment fragment = new PlanetFragment();
 //        Bundle args = new Bundle();
@@ -187,4 +205,7 @@ public class MainActivity extends Activity {
         }
         return true;
     }
+
+
+
 }
