@@ -1,5 +1,7 @@
 package be.pxl.filmapp.data.bean;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,7 +13,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity(tableName = "movies")
 public class MovieBean implements Parcelable {
+    @PrimaryKey
     private int id;
     private String title;
     private String director;
@@ -20,7 +24,7 @@ public class MovieBean implements Parcelable {
     private double rating;
     private String trailer;
 
-    public MovieBean(){
+    public MovieBean() {
     }
 
     public MovieBean(int id, String title, String director, int year, String genre, double rating, String trailer) {
@@ -67,8 +71,8 @@ public class MovieBean implements Parcelable {
         this.director = director;
     }
 
-    public String getYear() {
-        return String.valueOf(year);
+    public int getYear() {
+        return year;
     }
 
     public void setYear(int year) {
@@ -83,8 +87,8 @@ public class MovieBean implements Parcelable {
         this.genre = genre;
     }
 
-    public String getRating() {
-        return String.valueOf(rating);
+    public double getRating() {
+        return rating;
     }
 
     public void setRating(double rating) {
@@ -138,6 +142,22 @@ public class MovieBean implements Parcelable {
         parcel.writeString(genre);
         parcel.writeDouble(rating);
         parcel.writeString(trailer);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MovieBean movieBean = (MovieBean) o;
+
+        return id == movieBean.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
 

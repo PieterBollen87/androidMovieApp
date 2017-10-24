@@ -1,5 +1,6 @@
 package be.pxl.filmapp.utility;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,7 +9,11 @@ import android.support.v4.content.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
 
+import be.pxl.filmapp.services.MovieService;
+
 public class AppHelper {
+
+    private static AppDatabase db;
 
     /**
      * Turn drawable resource into byte array.
@@ -36,5 +41,13 @@ public class AppHelper {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
+    }
+
+    public static AppDatabase getDb(Context context) {
+        if (db == null) {
+            db = Room.databaseBuilder(context,
+                    AppDatabase.class, "movieDB").build();
+        }
+        return db;
     }
 }

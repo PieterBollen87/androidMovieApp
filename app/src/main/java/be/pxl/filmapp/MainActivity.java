@@ -1,12 +1,15 @@
 package be.pxl.filmapp;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,26 +20,21 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.JSONArray;
-
-import java.io.IOException;
 import java.util.List;
 
 import be.pxl.filmapp.adapters.MovieAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
+import be.pxl.filmapp.services.IMovieService;
+import be.pxl.filmapp.services.MovieService;
+import be.pxl.filmapp.utility.AppHelper;
 import be.pxl.filmapp.utility.UserSession;
-import be.pxl.filmapp.utility.VolleySingleton;
 
 public class MainActivity extends AppCompatActivity {
 
     private MovieAdapter adapterMovies;
-
+    private IMovieService movieService;
+    private ScrollView scrollView;
+    private ListView listViewMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button b = (Button) findViewById(R.id.addFilmButton);
+        scrollView = (ScrollView) findViewById(R.id.list_fragment);
+        listViewMovies = (ListView) scrollView.findViewById(R.id.list_fragment2);
+        EditText filterEdiText = (EditText) findViewById(R.id.filter);
+        movieService = new MovieService(AppHelper.getDb(getApplicationContext()).movieDao(), getApplicationContext());
+
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddMovieActivity.class);
@@ -52,8 +55,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Add Text Change Listener to EditText
-        EditText filterEdiText = (EditText) findViewById(R.id.filter);
+        listViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
+                intent.putExtra(MovieDetailActivity.MOVIE_OBJECT, adapterMovies.getFilteredData().get(position));
+                startActivity(intent);
+            }
+        });
+
         filterEdiText.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -71,47 +81,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        retrieveLoginSession();
         initializeDisplayContent();
-
     }
 
     private void initializeDisplayContent() {
-        final ScrollView scrollView = (ScrollView) findViewById(R.id.list_fragment);
-        final ListView listViewMovies = (ListView) scrollView.findViewById(R.id.list_fragment2);
-        String url = getResources().getString(R.string.api_url).toString() + "/api/films";
+        new AsyncTask<Void, Void, List<MovieBean>>() {
+            @Override
+            protected List<MovieBean> doInBackground(Void... params) {
+                return movieService.getAllMovies();
+            }
 
-        JsonArrayRequest jsArrRequest = new JsonArrayRequest
-                (url, new Response.Listener<JSONArray>() {
+            @Override
+            protected void onPostExecute(List<MovieBean> movies) {
+                adapterMovies = new MovieAdapter(getApplicationContext(), movies);
+                listViewMovies.setAdapter(adapterMovies);
 
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            final List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
-                            });
-                            adapterMovies = new MovieAdapter(getApplicationContext(), movies);
-                            listViewMovies.setAdapter(adapterMovies);
+                movieService.updateMovieDatabaseFromApi(movies);
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 
-                            listViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
-                                    intent.putExtra(MovieDetailActivity.MOVIE_OBJECT, adapterMovies.getFilteredData().get(position));
-                                    startActivity(intent);
-                                }
-                            });
-                        } catch (IOException e) {
-                            Log.d("ERROR", e.getMessage());
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        movieService.getAllMoviesObs().observe(this, new Observer<List<MovieBean>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieBean> movies) {
+                if (movies != null) {
+                    adapterMovies = new MovieAdapter(getApplicationContext(), movies);
+                    listViewMovies.setAdapter(adapterMovies);
+                }
+            }
+        });
+    }
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("ERROR", error.toString());
-                    }
-                });
+    private void retrieveLoginSession() {
+        SharedPreferences sharedPreferences =this.getSharedPreferences("Login", MODE_PRIVATE);
 
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsArrRequest);
+        UserSession.USER_NAME = sharedPreferences.getString("Username", "");
+        UserSession.TOKEN = sharedPreferences.getString("Token", "");
     }
 
     @Override
@@ -136,6 +141,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if (item.getTitle().equals("Logout")) {
             UserSession.USER_NAME = "";
+            UserSession.TOKEN = "";
+
+            SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
+            sharedPreferences.edit().clear().commit();
+
             Toast.makeText(this, "Logout successful", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -143,5 +153,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 }

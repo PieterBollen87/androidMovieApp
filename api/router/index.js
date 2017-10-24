@@ -109,7 +109,7 @@ router.post('/login', (req, res) => {
     bcrypt.compare(req.body.password, hash, (err, isMatch) => {
         if (err) return res.json({ error: 'Compare failed.' });
         if (!isMatch) return res.json({ error: 'Invalid password.' });
-        const token = jwt.sign({ username }, 'jwt secret token! can be anything', { expiresIn: '1d' });
+        const token = jwt.sign({ username }, 'jwt secret token! can be anything', { expiresIn: '30d' });
         res.json({ token });
     });
 });

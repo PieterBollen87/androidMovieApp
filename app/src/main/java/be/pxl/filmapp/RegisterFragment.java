@@ -76,15 +76,13 @@ public class RegisterFragment extends Fragment {
                 {
                     @Override
                     public void onResponse(String response) {
-                        String resultResponse = new String(response);
-                        try {
-                            JSONObject result = new JSONObject(resultResponse);
-                            Toast.makeText(getContext(), "User added!", Toast.LENGTH_SHORT).show();
-
-                        } catch (JSONException e) {
-                            Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
+                        // TODO handle errors
+                            String resultResponse = new String(response);
+                            if (resultResponse.length() > 0) {
+                                Toast.makeText(getContext(), "User added!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                            }
                     }
                 }, new Response.ErrorListener() {
             @Override

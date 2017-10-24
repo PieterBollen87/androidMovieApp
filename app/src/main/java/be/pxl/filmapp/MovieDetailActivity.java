@@ -60,8 +60,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void initializeDisplayContent() {
 
         textMovieTitle.setText(movie.getTitle());
-        textYearField.setText(movie.getYear());
-        ratingField.setText(movie.getRating());
+        textYearField.setText(String.valueOf(movie.getYear()));
+        ratingField.setText(String.valueOf(movie.getRating()));
         String name = movie.getTitle().toLowerCase();
         String posterUrl = String.format("%s/public/images/%s.jpg", this.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
 
