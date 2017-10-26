@@ -7,6 +7,9 @@
 /build
 /captures
 .externalNativeBuild
+api/node_modules/*
 app/src/main/res/values/properties.xml
 api/data/users.json
 app/google-services.json
+api/config.js
+api/serviceAccountKey.json

@@ -19,6 +19,8 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({ storage: storage })
+const config = require('../config');
+
 
 router.get('/films', (req, res) => {
     res.json(films);
@@ -45,7 +47,13 @@ router.post('/addfilm', upload.single('poster'), (req, res) => {
     films.push(film);
 
     fs.writeFile('data/films.json', JSON.stringify(films), (err) => {
-        err ? res.status(500).json({ success: false }) : res.status(200).json({ success: true });
+        if (err) {
+            res.status(500).json({ success: false })
+        } else {
+            // firebase push notification
+
+            res.status(200).json({ success: true });
+        }
     });
 });
 

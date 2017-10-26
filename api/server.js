@@ -8,6 +8,15 @@ const express    = require('express');        // call express
 const app        = express();                 // define our app using express
 const bodyParser = require('body-parser');
 const routes = require('./router/index.js');
+global.admin = require("firebase-admin");
+
+// Firebase
+const serviceAccount = require("./serviceAccountKey.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://main-c430c.firebaseio.com/"
+  });
 
 
 // configure app to use bodyParser()
@@ -34,3 +43,4 @@ app.use('/public', express.static('public'));
 // =============================================================================
 app.listen(port);
 console.log('Express app gestart op localhost:3000');
+
