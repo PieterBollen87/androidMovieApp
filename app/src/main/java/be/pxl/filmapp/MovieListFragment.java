@@ -1,5 +1,7 @@
 package be.pxl.filmapp;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
@@ -92,9 +94,18 @@ public class MovieListFragment extends Fragment  {
         listViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                intent.putExtra(MovieDetailActivity.MOVIE_OBJECT, adapterMovies.getFilteredData().get(position));
-                startActivity(intent);
+                Fragment detailFragment = new MovieDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(MovieDetailFragment.MOVIE_OBJECT, adapterMovies.getFilteredData().get(position));
+                detailFragment.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                FragmentTransaction fragmentTransaction =
+//                        getChildFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame_fragmentLayout, detailFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
 

@@ -1,1 +1,3 @@
 include ':app'
+include ':movieApplication-master'
+include ':movieApplication'
