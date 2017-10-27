@@ -19,7 +19,16 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({ storage: storage })
-const config = require('../config');
+const admin = require("firebase-admin");
+
+// Firebase
+const serviceAccount = require("../serviceAccountKey.json");
+const firebaseTopic = "news";
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://main-c430c.firebaseio.com/"
+  });
 
 
 router.get('/films', (req, res) => {
@@ -51,7 +60,21 @@ router.post('/addfilm', upload.single('poster'), (req, res) => {
             res.status(500).json({ success: false })
         } else {
             // firebase push notification
-
+            const payload = {
+                notification: {
+                  title: `New movie!`,
+                  body: `The new movie '${film.title}' has been added to our database!`
+                }
+              };
+              
+              // Send a message to devices subscribed to the provided topic.
+              admin.messaging().sendToTopic(firebaseTopic, payload)
+                .then(response => {
+                  //console.log("Successfully sent message:", response);
+                })
+                .catch(error => {
+                  console.log("Error sending message:", error);
+                });
             res.status(200).json({ success: true });
         }
     });
