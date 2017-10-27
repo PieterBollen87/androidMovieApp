@@ -133,8 +133,8 @@ public class MainActivity extends Activity {
                 break;
             case 2: fragment= new RegisterFragment();
                 break;
-//            case 3: fragment= new LoginFragment();
-//                break;
+            case 3: fragment= new AddMovieFragment();
+                break;
 //            case 4: fragment= new LoginFragment();
 //                break;
             default: getFragmentManager().popBackStack();
