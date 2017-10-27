@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
     private void selectItem(int position) {
         Fragment fragment= new Fragment();
         switch(position){
-            case 0: fragment=new MovieListFragment();
+            case 0: getFragmentManager().popBackStack();
                 break;
             case 1: fragment= new LoginFragment();
                 break;
@@ -137,11 +137,11 @@ public class MainActivity extends Activity {
 //                break;
 //            case 4: fragment= new LoginFragment();
 //                break;
-            default: fragment= new MovieListFragment();
+            default: getFragmentManager().popBackStack();
         }
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack(null);
         fragmentTransaction.add(R.id.MainFragmentContainer, fragment);
         fragmentTransaction.commit();
 

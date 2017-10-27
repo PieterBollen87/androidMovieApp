@@ -1,5 +1,5 @@
 <resources>
-    <string name="api_url">http://10.35.4.212:3000</string>
+    <string name="api_url">http://10.35.4.207:3000</string>
     <string name="youtube_api_key">AIzaSyAEu-FZVLvybynFT8c6DQBcRqJOh4sligw</string>
     <string name="app_name">FilmApp</string>
     <string name="action_settings">Settings</string>
