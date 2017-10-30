@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
-android:layout_height="match_parent"
+android:layout_height="75dp"
 android:orientation="vertical">
 
 <!-- We zetten even een dummy image om het resultaat te zien -->
@@ -9,8 +9,8 @@ android:orientation="vertical">
      consistent resultaat te hebben-->
 <com.android.volley.toolbox.NetworkImageView
     android:id="@+id/menuIcon"
-    android:layout_width="75dp"
-    android:layout_height="100dp"
+    android:layout_width="35dp"
+    android:layout_height="50dp"
     android:src="@drawable/film" />
 
 <!-- We zetten even dummytekst om het resultaat te zien -->
@@ -20,7 +20,7 @@ android:orientation="vertical">
 <TextView
     android:id="@+id/name"
     android:layout_width="215dp"
-    android:layout_height="100dp"
+    android:layout_height="50dp"
     android:layout_marginLeft="10dp"
     android:layout_marginStart="10dp"
     android:layout_toEndOf="@+id/menuIcon"

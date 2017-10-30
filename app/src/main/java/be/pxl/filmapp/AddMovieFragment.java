@@ -7,12 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -129,6 +125,7 @@ public class AddMovieFragment extends Fragment {
         genreList = getResources().getStringArray(R.array.movie_genres);
 //        genreSpinner = (Spinner) view.findViewById(R.id.genre);
         ArrayAdapter<String> myAdapter = new spinnerArrayAdapter(getActivity(), R.layout.spinner_item, genreList);
+
         genreSpinner.setAdapter(myAdapter);
     }
 

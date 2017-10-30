@@ -42,6 +42,7 @@ public class spinnerArrayAdapter extends ArrayAdapter<String> {
         return getCustomView(position, convertView, parent);
     }
 
+
     public View getCustomView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater=(LayoutInflater) context.getSystemService(  Context.LAYOUT_INFLATER_SERVICE );
@@ -51,9 +52,8 @@ public class spinnerArrayAdapter extends ArrayAdapter<String> {
         String genreUrl = String.format("%s/public/images/%s.png", row.getResources().getString(R.string.api_url).toString(), genres[position]);
         label.setText(genres[position].toString());
         genreImageView.setImageUrl(genreUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
-        if (position == 0) {//Special style for dropdown header
             label.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        }
+
 
         return row;
     }
