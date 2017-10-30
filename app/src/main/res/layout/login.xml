@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#F5DDBF"
         android:id="@+id/login_fragment">
 
 
@@ -35,7 +35,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:hint="Enter your username..."
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:layout_below="@id/title"/>
 
@@ -58,7 +58,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:hint="Enter your password"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:layout_below="@id/nameField"/>
 
@@ -68,7 +68,7 @@
         android:backgroundTint="@color/colorAccent"
         android:text="Login"
         android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:id="@+id/loginButton"
         android:layout_below="@id/passField"/>
     </RelativeLayout>

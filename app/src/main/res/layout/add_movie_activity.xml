@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5DDBF"
     android:id="@+id/addMovieLayout"
-    android:background="#3a3725">
+    >
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +21,7 @@
         android:layout_marginTop="15dp"
         android:gravity="center_vertical"
         android:hint="Enter Title..."
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp" />
 
     <Spinner
@@ -34,7 +35,7 @@
         android:gravity="center_vertical"
         android:textSize="20sp"
         android:textColor="@color/colorAccent"
-        android:backgroundTint="@color/colorPrimary"/>
+        android:backgroundTint="#F5DDBF"/>
 
     <RelativeLayout
         android:id="@+id/bottomlayoutmoviedetail"
@@ -54,7 +55,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:hint="Enter production year.."
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <EditText
             android:id="@+id/directorField"
@@ -89,7 +90,7 @@
             android:layout_marginBottom="5dp"
             android:backgroundTint="@color/colorAccent"
             android:text="browse"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/uploadButton"
@@ -104,7 +105,7 @@
             android:layout_marginBottom="5dp"
             android:backgroundTint="@color/colorAccent"
             android:text="upload"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <ImageView
             android:id="@+id/downloadImageView"

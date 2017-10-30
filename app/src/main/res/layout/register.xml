@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#F5DDBF"
         android:id="@+id/register_fragment">
     <TextView
         android:layout_width="250dp"
@@ -34,7 +34,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:hint="Enter your username..."
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp" />
 
     <TextView
@@ -56,7 +56,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:hint="Enter your password"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:layout_below="@id/nameField"/>
     <TextView
@@ -79,7 +79,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:hint="Confirm password"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:layout_below="@id/passField"/>
 
@@ -89,7 +89,7 @@
         android:backgroundTint="@color/colorAccent"
         android:text="Register"
         android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:id="@+id/registerButton"
         android:layout_below="@id/confirmPassField"/>
 </RelativeLayout>
