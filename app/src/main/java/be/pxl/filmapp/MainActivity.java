@@ -145,23 +145,6 @@ public class MainActivity extends Activity {
         fragmentTransaction.add(R.id.MainFragmentContainer, fragment);
         fragmentTransaction.commit();
 
-
-        // Create a new fragment and specify the planet to show based on position
-//        Fragment fragment = new PlanetFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-//        fragment.setArguments(args);
-//
-//        // Insert the fragment by replacing any existing fragment
-//        FragmentManager fragmentManager = getFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.content_frame, fragment)
-//                .commit();
-//
-//        // Highlight the selected item, update the title, and close the drawer
-//        mDrawerList.setItemChecked(position, true);
-//        setTitle(mPlanetTitles[position]);
-//        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
 
@@ -172,41 +155,6 @@ public class MainActivity extends Activity {
 
         UserSession.USER_NAME = sharedPreferences.getString("Username", "");
         UserSession.TOKEN = sharedPreferences.getString("Token", "");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        if (UserSession.USER_NAME == "") {
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.logged_in_menu, menu);
-//            menu.findItem(R.id.username).setTitle(UserSession.USER_NAME);
-        }
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        String register = "Login/Register";
-        if (item.getTitle().equals(register)) {
-            Intent intent = new Intent(this, RegLogActivity.class);
-            startActivity(intent);
-        }
-        if (item.getTitle().equals("Logout")) {
-            UserSession.USER_NAME = "";
-            UserSession.TOKEN = "";
-
-            SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
-            sharedPreferences.edit().clear().commit();
-
-            Toast.makeText(this, "Logout successful", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
-        }
-        return true;
     }
 
 

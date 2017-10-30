@@ -46,13 +46,6 @@ public class MovieListFragment extends Fragment  {
         super.onCreate(savedInstanceState);
 
 
-//        b.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AddMovieActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
     }
 
     private void initializeDisplayContent() {
