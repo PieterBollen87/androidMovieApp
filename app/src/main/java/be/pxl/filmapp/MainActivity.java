@@ -135,8 +135,8 @@ public class MainActivity extends Activity {
                 break;
             case 3: fragment= new AddMovieFragment();
                 break;
-//            case 4: fragment= new LoginFragment();
-//                break;
+           case 4: fragment= new MyListsFragment();
+              break;
             default: android.app.FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack(String.valueOf(R.id.MainFragmentContainer));
                 getFragmentManager().popBackStack();
