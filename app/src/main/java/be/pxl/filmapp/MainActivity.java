@@ -137,7 +137,9 @@ public class MainActivity extends Activity {
                 break;
 //            case 4: fragment= new LoginFragment();
 //                break;
-            default: getFragmentManager().popBackStack();
+            default: android.app.FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack(String.valueOf(R.id.MainFragmentContainer));
+                getFragmentManager().popBackStack();
         }
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
