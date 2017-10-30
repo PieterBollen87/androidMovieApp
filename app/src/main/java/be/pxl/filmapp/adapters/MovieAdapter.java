@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 
@@ -54,7 +55,7 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
 
         if (convertView == null) {
             holder = new ViewHolder();
-
+           final int pos =position;
             // Stel de custom row_layout in
             convertView = inflater.inflate(R.layout.row_layout, parent, false);
 
@@ -62,6 +63,13 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
             holder.posterImageView = (NetworkImageView) convertView.findViewById(R.id.icon);
             holder.genreImageView = (NetworkImageView) convertView.findViewById(R.id.genre);
             holder.watcheyeImageView = (NetworkImageView) convertView.findViewById(R.id.watch);
+            holder.watcheyeImageView.setOnClickListener(new View.OnClickListener() {
+                String s = filteredData.get(pos).toString();
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(inflater.getContext(), s, Toast.LENGTH_SHORT).show();
+                }
+            });
             holder.textView = (TextView) convertView.findViewById(R.id.name);
 
             convertView.setTag(holder);
