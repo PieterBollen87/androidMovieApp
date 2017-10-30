@@ -8,7 +8,7 @@ android:orientation="vertical">
 <!-- layout_height (en width voor ImageView) wordt voor ImageView en TextView gedifinieerd om een
      consistent resultaat te hebben-->
 <com.android.volley.toolbox.NetworkImageView
-    android:id="@+id/icon"
+    android:id="@+id/menuIcon"
     android:layout_width="75dp"
     android:layout_height="100dp"
     android:src="@drawable/film" />
@@ -23,7 +23,7 @@ android:orientation="vertical">
     android:layout_height="100dp"
     android:layout_marginLeft="10dp"
     android:layout_marginStart="10dp"
-    android:layout_toEndOf="@+id/icon"
+    android:layout_toEndOf="@+id/menuIcon"
     android:gravity="center_vertical"
     android:text="title"
     android:textColor="@color/colorPrimary"

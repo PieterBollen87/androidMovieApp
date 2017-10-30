@@ -40,13 +40,11 @@ public class MenuListAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.drawer_list_item, parent, false);
         TextView label = (TextView) row.findViewById(R.id.name);
-//        NetworkImageView genreImageView = (NetworkImageView) row.findViewById(R.id.genre);
-//        String genreUrl = String.format("%s/public/images/%s.png", row.getResources().getString(R.string.api_url).toString(), genres[position]);
+        NetworkImageView genreImageView = (NetworkImageView) row.findViewById(R.id.menuIcon);
         label.setText(options[position].toString());
-//        genreImageView.setImageUrl(genreUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
-        if (position == 0) {//Special style for dropdown header
-            label.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        }
+        String iconUrl = String.format("%s/public/images/%s.png", row.getResources().getString(R.string.api_url).toString(), label.getText().toString().toLowerCase().replace(" ", "_"));
+       genreImageView.setImageUrl(iconUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
+        label.setTextColor(context.getResources().getColor(R.color.colorAccent));
 
         return row;
     }
