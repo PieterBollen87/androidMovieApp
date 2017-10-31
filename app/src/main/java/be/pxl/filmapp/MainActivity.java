@@ -109,8 +109,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -182,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
             UserSession.USER_NAME = acct.getDisplayName();
             UserSession.EMAIL = acct.getEmail();
-            UserSession.TOKEN = "";
+            UserSession.TOKEN = acct.getIdToken();
 
             SharedPreferences sharedPreferences = this.getSharedPreferences("Login", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
