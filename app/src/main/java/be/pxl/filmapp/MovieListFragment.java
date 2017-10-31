@@ -56,7 +56,7 @@ public class MovieListFragment extends Fragment {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_fragmentLayout, detailFragment);
+                fragmentTransaction.replace(R.id.MainFragmentContainer, detailFragment);
                 fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
 
             }
