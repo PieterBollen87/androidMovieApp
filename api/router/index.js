@@ -91,38 +91,6 @@ router.delete('/deletefilm/:id', (req, res) => {
     });
 });
 
-router.post('/register', (req, res) => {
-    if (!req.body.username || !req.body.password)
-        return res.json({ error: 'No username or password.' });
-
-    admin.auth().createUser({
-        uid: toId(req.body.username),
-        password: req.body.password,
-        displayName: req.body.username,
-        disabled: false,
-        role: 0,
-    })
-        .then(userRecord => {
-            res.status(200).json({ uid: userRecord.uid })
-        })
-        .catch(err => {
-            res.status(500).json({ error: err })
-        });
-});
-
-router.post('/login', (req, res) => {
-    if (!req.body.username || !req.body.password)
-        return res.json({ error: 'No username or password.' });
-
-    admin.auth().getUser(toId(req.body.username))
-        .then(userRecord => {
-            res.status(200).json({ user: userRecord.toJSON() })
-        })
-        .catch(err => {
-            res.status(500).json({ error: err })
-        });
-});
-
 router.post('/addusermovie', (req, res) => {
     if (!req.body.username) return res.status(500).json({ error: 'No username' });
     if (!req.body.filmid || isNaN(Number(req.body.filmid))) return res.status(500).json({ error: 'Incorrect film id' });

@@ -23,8 +23,6 @@
     <string-array name="menuOptions">
         <item>Home</item>
         <item>Login</item>
-        <item>Add</item>
-        <item>My Lists</item>
         <item>Settings</item>
     </string-array>
 

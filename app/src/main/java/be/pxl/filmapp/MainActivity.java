@@ -21,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import be.pxl.filmapp.adapters.MenuListAdapter;
@@ -207,14 +209,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void logout() {
-        UserSession.USER_NAME = "";
-        UserSession.EMAIL = "";
-        UserSession.TOKEN = "";
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
-        sharedPreferences.edit().clear().commit();
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        UserSession.USER_NAME = "";
+                        UserSession.EMAIL = "";
+                        UserSession.TOKEN = "";
 
-        Toast.makeText(this, "Logout successful!", Toast.LENGTH_LONG).show();
-        buildDrawerLayout();
+                        SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
+                        sharedPreferences.edit().clear().commit();
+
+                        Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_LONG).show();
+                        buildDrawerLayout();
+                    }
+                });
     }
 }
