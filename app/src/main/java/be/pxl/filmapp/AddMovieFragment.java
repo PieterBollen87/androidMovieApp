@@ -149,7 +149,7 @@ public class AddMovieFragment extends Fragment {
                 MovieListFragment fragment = new MovieListFragment();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.addMovieLayout, fragment);
-                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
             }
         }, new Response.ErrorListener() {
             @Override

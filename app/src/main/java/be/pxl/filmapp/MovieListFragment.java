@@ -28,8 +28,6 @@ import be.pxl.filmapp.utility.AppHelper;
 
 
 public class MovieListFragment extends Fragment {
-    private static final String ARG_OPTION_NUMBER = "option number";
-
     private MovieAdapter adapterMovies;
     private IMovieService movieService;
     private ScrollView scrollView;
@@ -59,8 +57,7 @@ public class MovieListFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frame_fragmentLayout, detailFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
 
             }
         });

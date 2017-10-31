@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         switch (menuOptions[position]) {
             case "Home":
-                getFragmentManager().popBackStack();
+                fragment = new MovieListFragment();
                 break;
             case "Login":
                 signIn();
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             android.app.FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack(null);
             fragmentTransaction.add(R.id.MainFragmentContainer, fragment);
-            fragmentTransaction.commit();
+            fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
         }
     }
 
