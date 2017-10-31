@@ -6,5 +6,6 @@ package be.pxl.filmapp.utility;
 
 public class UserSession {
     public static  String USER_NAME = "";
+    public static  String EMAIL = "";
     public static  String TOKEN = "";
 }

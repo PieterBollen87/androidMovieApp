@@ -61,17 +61,10 @@ public class MovieDetailFragment extends Fragment {
         return view;
     }
 
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
-
 
     private void readDisplayStateValues() {
 //        Bundle  intent = getActivity().getIntent().getExtras();

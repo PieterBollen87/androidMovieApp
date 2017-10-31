@@ -7,8 +7,6 @@
     android:id="@+id/drawer_layout"
     tools:context="be.pxl.filmapp.MainActivity">
 
-
-
     <FrameLayout
         android:id="@+id/MainFragmentContainer"
         android:layout_width="match_parent"

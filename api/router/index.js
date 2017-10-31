@@ -2,13 +2,10 @@
 
 const router = require('express').Router();
 const fs = require('fs');
-const bcrypt = require('bcrypt-nodejs');
 const multer = require('multer')
-const jwt = require('jsonwebtoken');
 const toId = require('toid');
 
 const films = require('../data/films.json');
-const users = require('../data/users.json');
 const userMovies = require('../data/usermovies.json');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -28,7 +25,7 @@ const firebaseTopic = "news";
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://main-c430c.firebaseio.com/"
-  });
+});
 
 
 router.get('/films', (req, res) => {
@@ -62,18 +59,18 @@ router.post('/addfilm', upload.single('poster'), (req, res) => {
             // firebase push notification
             const payload = {
                 notification: {
-                  title: `New movie!`,
-                  body: `The new movie '${film.title}' has been added to our database!`
+                    title: `New movie!`,
+                    body: `The new movie '${film.title}' has been added to our database!`
                 }
-              };
-              
-              // Send a message to devices subscribed to the provided topic.
-              admin.messaging().sendToTopic(firebaseTopic, payload)
+            };
+
+            // Send a message to devices subscribed to the provided topic.
+            admin.messaging().sendToTopic(firebaseTopic, payload)
                 .then(response => {
-                  //console.log("Successfully sent message:", response);
+                    //console.log("Successfully sent message:", response);
                 })
                 .catch(error => {
-                  console.log("Error sending message:", error);
+                    console.log("Error sending message:", error);
                 });
             res.status(200).json({ success: true });
         }
@@ -97,52 +94,33 @@ router.delete('/deletefilm/:id', (req, res) => {
 router.post('/register', (req, res) => {
     if (!req.body.username || !req.body.password)
         return res.json({ error: 'No username or password.' });
-    if (req.body.username.length > 19 || req.body.password.length > 150)
-        return res.json({ error: 'Username or password is too long.' });
 
-    if (users[toId(req.body.username)])
-        return res.json({ error: 'Someone has already registered this username.' });
-
-    const username = req.body.username;
-
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) return res.json({ error: 'Salt failed.' });
-        bcrypt.hash(req.body.password, salt, null, (err, hash) => {
-            if (err) return res.json({ error: 'Hash failed.' });
-
-            users[toId(req.body.username)] = {
-                username: username,
-                password: hash,
-            };
-
-            fs.writeFile('data/users.json', JSON.stringify(users), (err) => {
-                err ? res.status(500).json({ success: false })
-                    : res.status(200).json(
-                        jwt.sign({ username }, 'jwt secret token! can be anything', { expiresIn: '1d' }));
-            });
-
+    admin.auth().createUser({
+        uid: toId(req.body.username),
+        password: req.body.password,
+        displayName: req.body.username,
+        disabled: false,
+        role: 0,
+    })
+        .then(userRecord => {
+            res.status(200).json({ uid: userRecord.uid })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err })
         });
-    });
 });
 
 router.post('/login', (req, res) => {
     if (!req.body.username || !req.body.password)
         return res.json({ error: 'No username or password.' });
-    if (req.body.username.length > 19 || req.body.password.length > 150)
-        return res.json({ error: 'Username or password is too long.' });
 
-    const user = users[toId(req.body.username)];
-    if (!user) return res.json({ error: 'Username is not registered.' });
-
-    const hash = user.password;
-    const username = user.username;
-
-    bcrypt.compare(req.body.password, hash, (err, isMatch) => {
-        if (err) return res.json({ error: 'Compare failed.' });
-        if (!isMatch) return res.json({ error: 'Invalid password.' });
-        const token = jwt.sign({ username }, 'jwt secret token! can be anything', { expiresIn: '30d' });
-        res.json({ token });
-    });
+    admin.auth().getUser(toId(req.body.username))
+        .then(userRecord => {
+            res.status(200).json({ user: userRecord.toJSON() })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err })
+        });
 });
 
 router.post('/addusermovie', (req, res) => {
