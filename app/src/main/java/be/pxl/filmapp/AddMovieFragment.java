@@ -2,7 +2,6 @@ package be.pxl.filmapp;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -81,7 +80,7 @@ public class AddMovieFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View  view= inflater.inflate(R.layout.add_movie_activity, container, false);
+        View view = inflater.inflate(R.layout.add_movie_activity, container, false);
 
         titleEditTextField = (EditText) view.findViewById(R.id.titleField);
         yearNumberPicker = (NumberPicker) view.findViewById(R.id.yearPicker);
@@ -90,7 +89,7 @@ public class AddMovieFragment extends Fragment {
         browseButton = (Button) view.findViewById(R.id.browseButton);
         uploadButton = (Button) view.findViewById(R.id.uploadButton);
         downloadImageView = (ImageView) view.findViewById(R.id.downloadImageView);
-        genreSpinner = (Spinner) view.findViewById(R.id.genre) ;
+        genreSpinner = (Spinner) view.findViewById(R.id.genre);
         yearNumberPicker.setMinValue(1950);
         yearNumberPicker.setMaxValue(2020);
 
@@ -123,7 +122,6 @@ public class AddMovieFragment extends Fragment {
 
     private void initializeDisplayContent() {
         genreList = getResources().getStringArray(R.array.movie_genres);
-//        genreSpinner = (Spinner) view.findViewById(R.id.genre);
         ArrayAdapter<String> myAdapter = new spinnerArrayAdapter(getActivity(), R.layout.spinner_item, genreList);
 
         genreSpinner.setAdapter(myAdapter);
@@ -140,16 +138,11 @@ public class AddMovieFragment extends Fragment {
                 try {
                     JSONObject result = new JSONObject(resultResponse);
                     Toast.makeText(getContext(), "Movie added!", Toast.LENGTH_SHORT).show();
-
+                    getFragmentManager().popBackStack();
                 } catch (JSONException e) {
                     Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                android.app.FragmentManager fragmentManager = getFragmentManager();
-                MovieListFragment fragment = new MovieListFragment();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.addMovieLayout, fragment);
-                fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
             }
         }, new Response.ErrorListener() {
             @Override
