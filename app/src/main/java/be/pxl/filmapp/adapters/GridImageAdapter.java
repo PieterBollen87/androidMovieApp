@@ -45,6 +45,8 @@ public class GridImageAdapter extends BaseAdapter {
             return 0;
         }
 
+        public List<MovieBean> getPersonalMovies() {return this.personalMovies; };
+
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
             NetworkImageView posterImage;

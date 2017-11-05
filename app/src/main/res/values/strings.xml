@@ -29,7 +29,7 @@
     <string-array name="menuOptionsLoggedIn">
         <item>Home</item>
         <item>Add</item>
-        <item>My Lists</item>
+        <item>Personal List</item>
         <item>Settings</item>
         <item>Logout</item>
     </string-array>

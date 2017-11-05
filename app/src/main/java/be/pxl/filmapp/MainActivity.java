@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             case "Add":
                 fragment = new AddMovieFragment();
                 break;
-            case "My Lists":
+            case "Personal List":
                 fragment = new MyListsFragment();
                 break;
             case "Settings":

@@ -1,6 +1,8 @@
 package be.pxl.filmapp;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +37,7 @@ import be.pxl.filmapp.utility.VolleySingleton;
 
 public class MyListsFragment extends Fragment {
     private GridView gridview;
+    private GridImageAdapter gridImageAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,15 @@ public class MyListsFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(gridview.getContext(), "" + position,
-                        Toast.LENGTH_SHORT).show();
+                Fragment detailFragment = new MovieDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(MovieDetailFragment.MOVIE_OBJECT, gridImageAdapter.getPersonalMovies().get(position));
+                detailFragment.setArguments(bundle);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.MainFragmentContainer, detailFragment);
+                fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
             }
         });
         initializeDisplayContent();
@@ -68,7 +78,8 @@ public class MyListsFragment extends Fragment {
                         try {
                             List<MovieBean> movies = new ObjectMapper().readValue(response.toString(), new TypeReference<List<MovieBean>>() {
                             });
-                            gridview.setAdapter(new GridImageAdapter(getContext(), movies));
+                            gridImageAdapter = new GridImageAdapter(getContext(), movies);
+                            gridview.setAdapter(gridImageAdapter);
                         } catch (IOException e) {
                             Log.d("ERROR", e.getMessage());
                         }
