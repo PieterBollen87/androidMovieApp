@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.util.List;
+
 import be.pxl.filmapp.R;
+import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.utility.VolleySingleton;
 
 /**
@@ -23,13 +26,15 @@ import be.pxl.filmapp.utility.VolleySingleton;
 public class GridImageAdapter extends BaseAdapter {
 
         private Context mContext;
+        private List<MovieBean> personalMovies;
 
-        public GridImageAdapter(Context c) {
+        public GridImageAdapter(Context c, List<MovieBean> personalMovies) {
             mContext = c;
+            this.personalMovies = personalMovies;
         }
 
         public int getCount() {
-            return mThumbIds.length;
+            return this.personalMovies.size();
         }
 
         public Object getItem(int position) {
@@ -42,34 +47,22 @@ public class GridImageAdapter extends BaseAdapter {
 
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
+            NetworkImageView posterImage;
             if (convertView == null) {
                 // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(200, 300));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setMinimumHeight(75);
-                imageView.setPadding(8, 8, 8, 8);
+                posterImage = new NetworkImageView(mContext);
+                posterImage.setLayoutParams(new GridView.LayoutParams(200, 300));
+                posterImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                posterImage.setMinimumHeight(75);
+                posterImage.setPadding(8, 8, 8, 8);
             } else {
-                imageView = (ImageView) convertView;
+                posterImage = (NetworkImageView) convertView;
             }
 
-            imageView.setImageResource(mThumbIds[position]);
-            return imageView;
-        }
+            String name = this.personalMovies.get(position).getTitle().toLowerCase();
+            String posterUrl = String.format("%s/public/images/%s.jpg", mContext.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
 
-        // references to our images
-        private Integer[] mThumbIds = {
-                R.drawable.comedy, R.drawable.film,
-                R.drawable.film, R.drawable.comedy,
-                R.drawable.comedy, R.drawable.film,
-                R.drawable.film, R.drawable.comedy,
-                R.drawable.comedy, R.drawable.film,
-                R.drawable.film, R.drawable.comedy,
-                R.drawable.comedy, R.drawable.film,
-                R.drawable.film, R.drawable.comedy,
-                R.drawable.comedy, R.drawable.film,
-                R.drawable.film, R.drawable.comedy,
-                R.drawable.comedy, R.drawable.film
-        };
+            posterImage.setImageUrl(posterUrl, VolleySingleton.getInstance(mContext).getImageLoader());
+            return posterImage;
+        }
     }

@@ -16,6 +16,7 @@
     "body-parser": "^1.13.2",
     "express": "^4.13.1",
     "firebase-admin": "^5.4.3",
+    "google-auth-library": "^0.11.0",
     "multer": "^1.3.0",
     "node-gcm": "^0.14.9",
     "toid": "^1.0.1"

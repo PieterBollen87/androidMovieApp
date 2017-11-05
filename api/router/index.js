@@ -4,6 +4,8 @@ const router = require('express').Router();
 const fs = require('fs');
 const multer = require('multer')
 const toId = require('toid');
+const GoogleAuth = require('google-auth-library');
+const auth = new GoogleAuth;
 
 const films = require('../data/films.json');
 const userMovies = require('../data/usermovies.json');
@@ -92,16 +94,33 @@ router.delete('/deletefilm/:id', (req, res) => {
 });
 
 router.post('/addusermovie', (req, res) => {
-    if (!req.body.username) return res.status(500).json({ error: 'No username' });
+    console.log(req.body.filmid);
     if (!req.body.filmid || isNaN(Number(req.body.filmid))) return res.status(500).json({ error: 'Incorrect film id' });
+    //if (!req.body.token) return res.status(500).json({ error: 'No token' });
+    if (!req.body.email) return res.status(500).json({ error: 'No email' });
 
-    const getUser = () => userMovies[toId(req.body.username)];
+    // const client = new auth.OAuth2(CLIENT_ID, '', '');
+    // client.verifyIdToken(
+    //     token,
+    //     CLIENT_ID,
+    //     // Or, if multiple clients access the backend:
+    //     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
+    //     (e, login) => {
+    //         const payload = login.getPayload();
+    //         const userid = payload['sub'];
+    //         // If request specified a G Suite domain:
+    //         //var domain = payload['hd'];
+    //         console.log(payload);
+    //         console.log(userid);
+    //     });
+
+    const getUser = () => userMovies[toId(req.body.email)];
 
     if (getUser() && getUser().movies && getUser().movies.includes(req.body.filmid))
         return res.status(500).json({ error: 'User already has movie added' });
 
     if (!getUser()) {
-        userMovies[toId(req.body.username)] = {
+        userMovies[toId(req.body.email)] = {
             movies: [],
         }
     }
@@ -109,13 +128,13 @@ router.post('/addusermovie', (req, res) => {
     getUser().movies.push(req.body.filmid);
 
     fs.writeFile('data/usermovies.json', JSON.stringify(userMovies), (err) => {
-        err ? res.status(500).json({ success: false }) : res.status(200).json({ success: true });
+        err ? res.status(500).send(err) : res.status(200).send('Movie added to personal list!');
     });
 });
 
 router.get('/usermovies/:username', (req, res) => {
     const userId = toId(req.params.username);
-    const response = userMovies[userId] ? userMovies[userId].movies.map(m => films[m]) : [];
+    const response = userMovies[userId] ? userMovies[userId].movies.map(m => films[m - 1]) : [];
 
     res.json(response);
 
