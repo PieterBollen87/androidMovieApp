@@ -169,8 +169,7 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                //params.put("token", UserSession.TOKEN);
-                params.put("email", UserSession.EMAIL);
+                params.put("token", UserSession.TOKEN);
                 params.put("filmid", filmId + "");
 
                 return params;

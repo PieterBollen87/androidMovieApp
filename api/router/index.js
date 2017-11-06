@@ -94,42 +94,38 @@ router.delete('/deletefilm/:id', (req, res) => {
 });
 
 router.post('/addusermovie', (req, res) => {
-    console.log(req.body.filmid);
     if (!req.body.filmid || isNaN(Number(req.body.filmid))) return res.status(500).json({ error: 'Incorrect film id' });
-    //if (!req.body.token) return res.status(500).json({ error: 'No token' });
-    if (!req.body.email) return res.status(500).json({ error: 'No email' });
+    if (!req.body.token) return res.status(500).json({ error: 'No token' });
 
-    // const client = new auth.OAuth2(CLIENT_ID, '', '');
-    // client.verifyIdToken(
-    //     token,
-    //     CLIENT_ID,
-    //     // Or, if multiple clients access the backend:
-    //     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
-    //     (e, login) => {
-    //         const payload = login.getPayload();
-    //         const userid = payload['sub'];
-    //         // If request specified a G Suite domain:
-    //         //var domain = payload['hd'];
-    //         console.log(payload);
-    //         console.log(userid);
-    //     });
+    const client = new auth.OAuth2(serviceAccount.client_id, '', '');
+    client.verifyIdToken(
+        req.body.token,
+        serviceAccount.client_id,
+        (e, login) => {
+            const payload = login.getPayload();
+            const userid = payload['sub'];
+            
+            if (userid && userid.length) {
+                const userEmail = payload.email;
+                const getUser = () => userMovies[toId(userEmail)];
+                
+                    if (getUser() && getUser().movies && getUser().movies.includes(req.body.filmid))
+                        return res.status(500).json({ error: 'User already has movie added' });
+                
+                    if (!getUser()) {
+                        userMovies[toId(userEmail)] = {
+                            movies: [],
+                        }
+                    }
+                
+                    getUser().movies.push(req.body.filmid);
+                
+                    fs.writeFile('data/usermovies.json', JSON.stringify(userMovies), (err) => {
+                        err ? res.status(500).send(err) : res.status(200).send('Movie added to personal list!');
+                    });
 
-    const getUser = () => userMovies[toId(req.body.email)];
-
-    if (getUser() && getUser().movies && getUser().movies.includes(req.body.filmid))
-        return res.status(500).json({ error: 'User already has movie added' });
-
-    if (!getUser()) {
-        userMovies[toId(req.body.email)] = {
-            movies: [],
-        }
-    }
-
-    getUser().movies.push(req.body.filmid);
-
-    fs.writeFile('data/usermovies.json', JSON.stringify(userMovies), (err) => {
-        err ? res.status(500).send(err) : res.status(200).send('Movie added to personal list!');
-    });
+            }
+        });
 });
 
 router.get('/usermovies/:username', (req, res) => {
