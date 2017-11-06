@@ -9,6 +9,7 @@ const auth = new GoogleAuth;
 
 const films = require('../data/films.json');
 const userMovies = require('../data/usermovies.json');
+const admins = ['animereviewsxyz@gmail.com'];
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images/')
@@ -35,6 +36,7 @@ router.get('/films', (req, res) => {
 });
 
 router.post('/addfilm', upload.single('poster'), (req, res) => {
+    if (!req.body.token) return res.status(500).json({ error: 'No token' });
     if (!req.body.title) return res.status(500).json({ error: 'No film title' });
     if (!req.body.director) return res.status(500).json({ error: 'No film director' });
     if (!req.body.year) return res.status(500).json({ error: 'No film year' });
@@ -43,40 +45,53 @@ router.post('/addfilm', upload.single('poster'), (req, res) => {
     if (Object.keys(films).find(f => toId(films[f].title) === toId(req.body.title)))
         return res.status(500).json({ error: 'Film already exists' });
 
-    const film = {
-        id: films.length + 1,
-        title: req.body.title,
-        director: req.body.director,
-        year: parseInt(Number(req.body.year)),
-        genre: req.body.genre,
-        trailer: req.body.trailer,
-    };
+    const client = new auth.OAuth2(serviceAccount.client_id, '', '');
+    client.verifyIdToken(
+        req.body.token,
+        serviceAccount.client_id,
+        (e, login) => {
+            const payload = login.getPayload();
+            const userid = payload['sub'];
+            if (!userid || !userid.length) return res.status(401);
 
-    films.push(film);
+            const userEmail = payload.email;
+            if (!admins.includes(userEmail)) return res.status(401);
 
-    fs.writeFile('data/films.json', JSON.stringify(films), (err) => {
-        if (err) {
-            res.status(500).json({ success: false })
-        } else {
-            // firebase push notification
-            const payload = {
-                notification: {
-                    title: `New movie!`,
-                    body: `The new movie '${film.title}' has been added to our database!`
-                }
+            const film = {
+                id: films.length + 1,
+                title: req.body.title,
+                director: req.body.director,
+                year: parseInt(Number(req.body.year)),
+                genre: req.body.genre,
+                trailer: req.body.trailer,
             };
 
-            // Send a message to devices subscribed to the provided topic.
-            admin.messaging().sendToTopic(firebaseTopic, payload)
-                .then(response => {
-                    //console.log("Successfully sent message:", response);
-                })
-                .catch(error => {
-                    console.log("Error sending message:", error);
-                });
-            res.status(200).json({ success: true });
-        }
-    });
+            films.push(film);
+
+            fs.writeFile('data/films.json', JSON.stringify(films), (err) => {
+                if (err) {
+                    res.status(500).json({ success: false })
+                } else {
+                    // firebase push notification
+                    const payload = {
+                        notification: {
+                            title: `New movie!`,
+                            body: `The new movie '${film.title}' has been added to our database!`
+                        }
+                    };
+
+                    // Send a message to devices subscribed to the provided topic.
+                    admin.messaging().sendToTopic(firebaseTopic, payload)
+                        .then(response => {
+                            //console.log("Successfully sent message:", response);
+                        })
+                        .catch(error => {
+                            console.log("Error sending message:", error);
+                        });
+                    res.status(200).json({ success: true });
+                }
+            });
+        });
 });
 
 router.delete('/deletefilm/:id', (req, res) => {
@@ -104,27 +119,25 @@ router.post('/addusermovie', (req, res) => {
         (e, login) => {
             const payload = login.getPayload();
             const userid = payload['sub'];
-            
-            if (userid && userid.length) {
-                const userEmail = payload.email;
-                const getUser = () => userMovies[toId(userEmail)];
-                
-                    if (getUser() && getUser().movies && getUser().movies.includes(req.body.filmid))
-                        return res.status(500).json({ error: 'User already has movie added' });
-                
-                    if (!getUser()) {
-                        userMovies[toId(userEmail)] = {
-                            movies: [],
-                        }
-                    }
-                
-                    getUser().movies.push(req.body.filmid);
-                
-                    fs.writeFile('data/usermovies.json', JSON.stringify(userMovies), (err) => {
-                        err ? res.status(500).send(err) : res.status(200).send('Movie added to personal list!');
-                    });
+            if (!userid || !userid.length) return res.status(401);
 
+            const userEmail = payload.email;
+            const getUser = () => userMovies[toId(userEmail)];
+
+            if (getUser() && getUser().movies && getUser().movies.includes(req.body.filmid))
+                return res.status(500).json({ error: 'User already has movie added' });
+
+            if (!getUser()) {
+                userMovies[toId(userEmail)] = {
+                    movies: [],
+                }
             }
+
+            getUser().movies.push(req.body.filmid);
+
+            fs.writeFile('data/usermovies.json', JSON.stringify(userMovies), (err) => {
+                err ? res.status(500).send(err) : res.status(200).send('Movie added to personal list!');
+            });
         });
 });
 

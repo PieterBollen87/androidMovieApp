@@ -31,6 +31,7 @@ import java.util.Map;
 
 import be.pxl.filmapp.adapters.spinnerArrayAdapter;
 import be.pxl.filmapp.utility.AppHelper;
+import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleyMultipartRequest;
 import be.pxl.filmapp.utility.VolleySingleton;
 
@@ -155,6 +156,7 @@ public class AddMovieFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
+                params.put("token", UserSession.TOKEN);
                 params.put("title", titleEditTextField.getText().toString());
                 params.put("year", yearNumberPicker.getValue() + "");
                 params.put("director", directorEditTextField.getText().toString());
