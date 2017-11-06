@@ -3,7 +3,6 @@ package be.pxl.filmapp;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,14 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.json.JSONArray;
 
@@ -27,7 +27,6 @@ import java.util.List;
 
 import be.pxl.filmapp.adapters.GridImageAdapter;
 import be.pxl.filmapp.data.bean.MovieBean;
-import be.pxl.filmapp.utility.AppHelper;
 import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
@@ -38,6 +37,7 @@ import be.pxl.filmapp.utility.VolleySingleton;
 public class MyListsFragment extends Fragment {
     private GridView gridview;
     private GridImageAdapter gridImageAdapter;
+    private Button shareButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class MyListsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_lists_fragment, container, false);
         gridview = (GridView) view.findViewById(R.id.gridview);
+        shareButton = (Button) view.findViewById(R.id.shareButton);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -64,6 +65,15 @@ public class MyListsFragment extends Fragment {
                 fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
             }
         });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TweetComposer.Builder builder = new TweetComposer.Builder(getContext())
+                        .text(buildShareMoviesString());
+                builder.show();
+            }
+        });
+
         initializeDisplayContent();
 
         return view;
@@ -92,6 +102,15 @@ public class MyListsFragment extends Fragment {
                     }
                 });
         VolleySingleton.getInstance(getContext()).addToRequestQueue(jsArrRequest);
+    }
+
+    private String buildShareMoviesString() {
+        StringBuilder sb = new StringBuilder("I have seen the following movies: ");
+
+        for (MovieBean m : gridImageAdapter.getPersonalMovies()) {
+            sb.append(m.getTitle() + ", ");
+        }
+        return sb.toString().substring(0, sb.toString().length() - 2);
     }
 
 }
