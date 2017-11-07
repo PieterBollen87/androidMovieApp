@@ -83,6 +83,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+
+        <ListView
+            android:id="@+id/list_reviews"
+            android:layout_below="@+id/trailerFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5DDBF"
+            android:layout_marginTop="30dp"/>
         </RelativeLayout>
 
     </RelativeLayout>

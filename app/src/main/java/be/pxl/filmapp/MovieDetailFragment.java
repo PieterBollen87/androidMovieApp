@@ -5,14 +5,30 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONArray;
+
+import java.io.IOException;
+import java.util.List;
+
+import be.pxl.filmapp.adapters.GridImageAdapter;
+import be.pxl.filmapp.adapters.ReviewAdapater;
 import be.pxl.filmapp.data.bean.MovieBean;
+import be.pxl.filmapp.data.bean.ReviewBean;
+import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
 /**
@@ -27,6 +43,7 @@ public class MovieDetailFragment extends Fragment {
     TextView textYearField;
     TextView ratingField;
     NetworkImageView backgroundImageField;
+    ListView reviewListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +51,7 @@ public class MovieDetailFragment extends Fragment {
         textMovieTitle = (TextView) view.findViewById(R.id.titleField);
         textYearField = (TextView) view.findViewById(R.id.yearField);
         ratingField = (TextView) view.findViewById(R.id.ratingField);
+        reviewListView = (ListView)  view.findViewById(R.id.list_reviews);
 
         backgroundImageField = (NetworkImageView) view.findViewById(R.id.backgroundImage);
         readDisplayStateValues();
@@ -49,6 +67,8 @@ public class MovieDetailFragment extends Fragment {
         trailerFragment.setArguments(args);
         fragmentTransaction.add(R.id.trailerFragmentContainer, trailerFragment);
         fragmentTransaction.commit();
+        
+        getReviews();
 
         return view;
     }
@@ -75,5 +95,29 @@ public class MovieDetailFragment extends Fragment {
 
         backgroundImageField.setImageAlpha(80);
         backgroundImageField.setImageUrl(posterUrl, VolleySingleton.getInstance(getContext()).getImageLoader());
+    }
+
+    public void getReviews() {
+        JsonArrayRequest jsArrRequest = new JsonArrayRequest
+                (getResources().getString(R.string.api_url).toString() + "/api/filmreviews/" + movie.getId(), new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            List<ReviewBean> reviews = new ObjectMapper().readValue(response.toString(), new TypeReference<List<ReviewBean>>() {
+                            });
+                            reviewListView.setAdapter(new ReviewAdapater(getContext(), reviews));
+                        } catch (IOException e) {
+                            Log.d("ERROR", e.getMessage());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR", error.toString());
+                    }
+                });
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(jsArrRequest);
     }
 }

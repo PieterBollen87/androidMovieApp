@@ -191,14 +191,14 @@ router.post('/addfilmreview', (req, res) => {
                 err ? res.status(500).send(err) : res.status(200).send('Movie review added!');
             });
         });
+});
 
-    router.get('/filmsreviews/:filmid', (req, res) => {
-        const filmId = toId(req.params.filmid);
-        const response = filmReviews[filmId] ? filmReviews[filmId] : [];
+router.get('/filmreviews/:filmid', (req, res) => {
+    const filmId = toId(req.params.filmid);
+    const response = filmReviews[filmId] ? filmReviews[filmId].reviews : [];
 
-        res.json(response);
+    res.json(response);
 
-    });
 });
 
 module.exports = router;
