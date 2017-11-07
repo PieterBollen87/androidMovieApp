@@ -30,7 +30,7 @@ import be.pxl.filmapp.utility.UserSession;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    MovieListFragment listFragment = new MovieListFragment();
+    Fragment currentFragment = null;
     private String[] menuOptions;
     private MenuListAdapter adapterMenu;
     private ListView mDrawerList;
@@ -50,11 +50,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         retrieveLoginSession();
         buildDrawerLayout();
 
-        android.app.FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.MainFragmentContainer, listFragment);
-        fragmentTransaction.commit();
-
+//        if (currentFragment == null) {
+//            currentFragment = new MovieListFragment();
+//            android.app.FragmentManager fragmentManager = getFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.add(R.id.MainFragmentContainer, currentFragment);
+//            fragmentTransaction.commit();
+//        }
 
         // Google authentication
 
@@ -128,20 +130,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void selectItem(int position) {
-        Fragment fragment = null;
-
         switch (menuOptions[position]) {
             case "Home":
-                fragment = new MovieListFragment();
+                currentFragment = new MovieListFragment();
                 break;
             case "Login":
                 signIn();
                 break;
             case "Add":
-                fragment = new AddMovieFragment();
+                currentFragment = new AddMovieFragment();
                 break;
             case "Personal List":
-                fragment = new MyListsFragment();
+                currentFragment = new MyListsFragment();
                 break;
             case "Settings":
                 // handle settings
@@ -151,12 +151,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 break;
         }
 
-        if (fragment != null) {
+        if (currentFragment != null) {
             android.app.FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack(null);
-            fragmentTransaction.add(R.id.MainFragmentContainer, fragment);
+            fragmentTransaction.add(R.id.MainFragmentContainer, currentFragment);
             fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
-            mDrawerLayout.closeDrawers();
         }
     }
 

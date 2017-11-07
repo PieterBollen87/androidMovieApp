@@ -33,10 +33,10 @@ public class MovieListFragment extends Fragment {
     private ScrollView scrollView;
     private ListView listViewMovies;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
