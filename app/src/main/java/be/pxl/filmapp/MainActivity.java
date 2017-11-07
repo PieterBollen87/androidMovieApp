@@ -132,18 +132,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void selectItem(int position) {
+        Fragment newFragment = null;
         switch (menuOptions[position]) {
             case "Home":
-                currentFragment = new MovieListFragment();
+                newFragment = new MovieListFragment();
                 break;
             case "Login":
                 signIn();
                 break;
             case "Add":
-                currentFragment = new AddMovieFragment();
+                newFragment = new AddMovieFragment();
                 break;
             case "Personal List":
-                currentFragment = new MyListsFragment();
+                newFragment = new MyListsFragment();
                 break;
             case "Settings":
                 // handle settings
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 break;
         }
 
-        if (currentFragment != null) {
+        if (newFragment != null) {
+            currentFragment = newFragment;
             android.app.FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack(null);
             fragmentTransaction.add(R.id.MainFragmentContainer, currentFragment);
