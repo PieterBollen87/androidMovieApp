@@ -9,6 +9,7 @@ const auth = new GoogleAuth;
 
 const films = require('../data/films.json');
 const userMovies = require('../data/usermovies.json');
+const filmReviews = require('../data/filmReviews.json');
 const admins = ['animereviewsxyz@gmail.com'];
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -50,6 +51,8 @@ router.post('/addfilm', upload.single('poster'), (req, res) => {
         req.body.token,
         serviceAccount.client_id,
         (e, login) => {
+            if (!login) return res.status(500).send('Login session expired');
+
             const payload = login.getPayload();
             const userid = payload['sub'];
             if (!userid || !userid.length) return res.status(401);
@@ -110,13 +113,15 @@ router.delete('/deletefilm/:id', (req, res) => {
 
 router.post('/addusermovie', (req, res) => {
     if (!req.body.filmid || isNaN(Number(req.body.filmid))) return res.status(500).json({ error: 'Incorrect film id' });
-    if (!req.body.token) return res.status(500).json({ error: 'No token' });
+    if (!req.body.token) return res.status(500).send('No token');
 
     const client = new auth.OAuth2(serviceAccount.client_id, '', '');
     client.verifyIdToken(
         req.body.token,
         serviceAccount.client_id,
         (e, login) => {
+            if (!login) return res.status(500).send('Login session expired');
+
             const payload = login.getPayload();
             const userid = payload['sub'];
             if (!userid || !userid.length) return res.status(401);
@@ -147,6 +152,53 @@ router.get('/usermovies/:username', (req, res) => {
 
     res.json(response);
 
+});
+
+router.post('/addfilmreview', (req, res) => {
+    if (!req.body.token) return res.status(500).json('No token');
+    if (!req.body.filmid) return res.status(500).json('No film id');
+    if (!req.body.rating) return res.status(500).json('No film rating');
+    if (!req.body.description) return res.status(500).json('no review description');
+
+    const client = new auth.OAuth2(serviceAccount.client_id, '', '');
+    client.verifyIdToken(
+        req.body.token,
+        serviceAccount.client_id,
+        (e, login) => {
+            if (!login) return res.status(500).send('Login session expired');
+
+            const payload = login.getPayload();
+            const userid = payload['sub'];
+            if (!userid || !userid.length) return res.status(401);
+
+            const userEmail = payload.email;
+            const getMovieReviews = () => filmReviews[req.body.filmid];
+
+            if (getMovieReviews() && getMovieReviews().reviews && getMovieReviews().reviews.find(r => r.user === toId(userEmail)))
+                return res.status(500).send('User already has made a review for this movie');
+
+            if (!getMovieReviews()) {
+                filmReviews[req.body.filmid] = {
+                    reviews: [],
+                }
+            }
+
+            getMovieReviews().reviews.push({
+                user: toId(userEmail), userName: payload.name, avatar: payload.picture, rating: req.body.rating, description: req.body.description
+            });
+
+            fs.writeFile('data/filmreviews.json', JSON.stringify(filmReviews), (err) => {
+                err ? res.status(500).send(err) : res.status(200).send('Movie review added!');
+            });
+        });
+
+    router.get('/filmsreviews/:filmid', (req, res) => {
+        const filmId = toId(req.params.filmid);
+        const response = filmReviews[filmId] ? filmReviews[filmId] : [];
+
+        res.json(response);
+
+    });
 });
 
 module.exports = router;

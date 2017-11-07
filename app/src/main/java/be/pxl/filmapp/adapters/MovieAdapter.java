@@ -1,6 +1,11 @@
 package be.pxl.filmapp.adapters;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import be.pxl.filmapp.AddReviewFragment;
+import be.pxl.filmapp.MovieDetailFragment;
 import be.pxl.filmapp.R;
 import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.utility.UserSession;
@@ -60,12 +67,11 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
         if (convertView == null) {
             holder = new ViewHolder();
-           final int pos =position;
             // Stel de custom row_layout in
             convertView = inflater.inflate(R.layout.row_layout, parent, false);
 
@@ -93,7 +99,7 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
         holder.watcheyeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addMovieToPersonalList(filmId);
+                addMovieToPersonalList(filmId, position);
             }
         });
 
@@ -143,7 +149,7 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
         return filter;
     }
 
-    private void addMovieToPersonalList(final int filmId) {
+    private void addMovieToPersonalList(final int filmId, final int position) {
         final String URL = context.getResources().getString(R.string.api_url).toString() + "/api/addusermovie";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -151,8 +157,17 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
                 {
                     @Override
                     public void onResponse(String response) {
-                        // response
                         Toast.makeText(context, response, Toast.LENGTH_LONG).show();
+
+                        Fragment reviewFragment = new AddReviewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(MovieDetailFragment.MOVIE_OBJECT, filteredData.get(position));
+                        reviewFragment.setArguments(bundle);
+
+                        FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.MainFragmentContainer, reviewFragment);
+                        fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
                     }
                 },
                 new Response.ErrorListener()
