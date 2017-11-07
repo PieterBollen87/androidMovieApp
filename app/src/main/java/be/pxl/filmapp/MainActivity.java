@@ -26,6 +26,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import be.pxl.filmapp.adapters.MenuListAdapter;
+import be.pxl.filmapp.utility.AppHelper;
 import be.pxl.filmapp.utility.UserSession;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -50,13 +51,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         retrieveLoginSession();
         buildDrawerLayout();
 
-//        if (currentFragment == null) {
-//            currentFragment = new MovieListFragment();
-//            android.app.FragmentManager fragmentManager = getFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.add(R.id.MainFragmentContainer, currentFragment);
-//            fragmentTransaction.commit();
-//        }
+        if (AppHelper.initialLaunch) {
+            AppHelper.initialLaunch = false;
+            currentFragment = new MovieListFragment();
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.MainFragmentContainer, currentFragment);
+            fragmentTransaction.commit();
+        }
 
         // Google authentication
 

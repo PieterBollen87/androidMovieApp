@@ -14,6 +14,7 @@ import be.pxl.filmapp.services.MovieService;
 public class AppHelper {
 
     private static AppDatabase db;
+    public static boolean initialLaunch = true;
 
     /**
      * Turn drawable resource into byte array.
