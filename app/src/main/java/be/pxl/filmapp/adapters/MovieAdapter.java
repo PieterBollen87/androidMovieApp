@@ -160,8 +160,7 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Log.d("Error.Response", error.toString());
-                        Toast.makeText(context, "Something went wrong! :(", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,  new String(error.networkResponse.data), Toast.LENGTH_LONG).show();
                     }
                 }
         ) {

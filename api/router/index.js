@@ -125,7 +125,7 @@ router.post('/addusermovie', (req, res) => {
             const getUser = () => userMovies[toId(userEmail)];
 
             if (getUser() && getUser().movies && getUser().movies.includes(req.body.filmid))
-                return res.status(500).json({ error: 'User already has movie added' });
+                return res.status(500).send('User already has movie added');
 
             if (!getUser()) {
                 userMovies[toId(userEmail)] = {

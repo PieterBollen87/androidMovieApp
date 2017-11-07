@@ -148,7 +148,7 @@ public class AddMovieFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),  new String(error.networkResponse.data), Toast.LENGTH_LONG).show();
                 Log.i("Error", error.getMessage());
                 error.printStackTrace();
             }
