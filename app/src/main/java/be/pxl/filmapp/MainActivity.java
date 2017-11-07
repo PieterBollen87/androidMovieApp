@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().addToBackStack(null);
             fragmentTransaction.add(R.id.MainFragmentContainer, fragment);
             fragmentTransaction.addToBackStack("FRAGMENT_TAG").commit();
+            mDrawerLayout.closeDrawers();
         }
     }
 
