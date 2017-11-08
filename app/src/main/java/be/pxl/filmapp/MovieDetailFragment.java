@@ -25,11 +25,9 @@ import org.json.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
-import be.pxl.filmapp.adapters.GridImageAdapter;
 import be.pxl.filmapp.adapters.ReviewAdapater;
 import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.data.bean.ReviewBean;
-import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
 /**
@@ -52,7 +50,7 @@ public class MovieDetailFragment extends Fragment {
         textMovieTitle = (TextView) view.findViewById(R.id.titleField);
         textYearField = (TextView) view.findViewById(R.id.yearField);
         ratingField = (RatingBar) view.findViewById(R.id.ratingField);
-        reviewListView = (ListView)  view.findViewById(R.id.list_reviews);
+        reviewListView = (ListView) view.findViewById(R.id.list_reviews);
 
         backgroundImageField = (NetworkImageView) view.findViewById(R.id.backgroundImage);
         readDisplayStateValues();
@@ -68,7 +66,7 @@ public class MovieDetailFragment extends Fragment {
         trailerFragment.setArguments(args);
         fragmentTransaction.add(R.id.trailerFragmentContainer, trailerFragment);
         fragmentTransaction.commit();
-        
+
         getReviews();
 
         return view;

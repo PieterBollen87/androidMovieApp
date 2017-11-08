@@ -29,8 +29,6 @@ import be.pxl.filmapp.adapters.MenuListAdapter;
 import be.pxl.filmapp.utility.AppHelper;
 import be.pxl.filmapp.utility.UserSession;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     Fragment currentFragment = null;
@@ -219,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void logout() {
-
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override

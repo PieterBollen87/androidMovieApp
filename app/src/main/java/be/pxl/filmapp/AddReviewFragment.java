@@ -1,9 +1,6 @@
 package be.pxl.filmapp;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,27 +64,24 @@ public class AddReviewFragment extends Fragment {
         final String URL = getActivity().getResources().getString(R.string.api_url).toString() + "/api/addfilmreview";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
                         getFragmentManager().popBackStack();
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Toast.makeText(getActivity(),  new String(error.networkResponse.data), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), new String(error.networkResponse.data), Toast.LENGTH_LONG).show();
                     }
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("token", UserSession.TOKEN);
                 params.put("filmid", movie.getId() + "");
                 params.put("rating", ratingNumberPicker.getValue() + "");

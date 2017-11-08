@@ -6,7 +6,6 @@ import android.app.FragmentTransaction;
 import android.arch.lifecycle.Observer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
 import java.util.List;
 
@@ -30,7 +28,6 @@ import be.pxl.filmapp.utility.AppHelper;
 public class MovieListFragment extends Fragment {
     private MovieAdapter adapterMovies;
     private IMovieService movieService;
-    private ScrollView scrollView;
     private ListView listViewMovies;
 
     @Override

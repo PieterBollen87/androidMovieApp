@@ -82,7 +82,7 @@ public class AddMovieFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_movie_activity, container, false);
+        View view = inflater.inflate(R.layout.add_movie_fragment, container, false);
 
         titleEditTextField = (EditText) view.findViewById(R.id.titleField);
         yearNumberPicker = (NumberPicker) view.findViewById(R.id.yearPicker);

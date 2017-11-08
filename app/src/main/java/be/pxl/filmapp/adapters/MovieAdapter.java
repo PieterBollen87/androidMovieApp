@@ -35,7 +35,6 @@ import be.pxl.filmapp.utility.UserSession;
 import be.pxl.filmapp.utility.VolleySingleton;
 
 public class MovieAdapter extends BaseAdapter implements Filterable {
-
     private List<MovieBean> originalValues = null;
     private List<MovieBean> filteredData = null;
     private LayoutInflater inflater;
@@ -189,7 +188,6 @@ public class MovieAdapter extends BaseAdapter implements Filterable {
                 return params;
             }
         };
-
         VolleySingleton.getInstance(context).addToRequestQueue(postRequest);
     }
 

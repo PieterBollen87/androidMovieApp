@@ -1,4 +1,5 @@
 package be.pxl.filmapp.adapters;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,6 @@ public class MenuListAdapter extends ArrayAdapter<String> {
         this.context = context;
     }
 
-
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
@@ -36,14 +36,13 @@ public class MenuListAdapter extends ArrayAdapter<String> {
     }
 
     public View getCustomView(int position, View convertView, ViewGroup parent) {
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.drawer_list_item, parent, false);
         TextView label = (TextView) row.findViewById(R.id.name);
         NetworkImageView genreImageView = (NetworkImageView) row.findViewById(R.id.menuIcon);
         label.setText(options[position].toString());
         String iconUrl = String.format("%s/public/images/%s.png", row.getResources().getString(R.string.api_url).toString(), label.getText().toString().toLowerCase().replace(" ", "_"));
-       genreImageView.setImageUrl(iconUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
+        genreImageView.setImageUrl(iconUrl, VolleySingleton.getInstance(this.getContext()).getImageLoader());
         label.setTextColor(context.getResources().getColor(R.color.colorAccent));
 
         return row;
