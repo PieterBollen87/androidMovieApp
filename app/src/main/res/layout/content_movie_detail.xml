@@ -45,15 +45,16 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
-        <TextView
+        <RatingBar
             android:id="@+id/ratingField"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/rating"
             android:layout_below="@+id/titleField"
             android:gravity="center"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:numStars="5"
+            android:stepSize="1.0" />
 
         <TextView
             android:id="@+id/year"

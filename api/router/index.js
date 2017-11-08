@@ -187,6 +187,8 @@ router.post('/addfilmreview', (req, res) => {
                 user: toId(userEmail), userName: payload.name, avatar: payload.picture, rating: req.body.rating, description: req.body.description
             });
 
+            increaseFilmRating(req.body.filmid, req.body.rating);
+
             fs.writeFile('data/filmreviews.json', JSON.stringify(filmReviews), (err) => {
                 err ? res.status(500).send(err) : res.status(200).send('Movie review added!');
             });
@@ -200,5 +202,16 @@ router.get('/filmreviews/:filmid', (req, res) => {
     res.json(response);
 
 });
+
+function increaseFilmRating(filmId, rating) {
+    const film = films.find(f => f.id === Number(filmId));
+    if (!film) return;
+
+    film.totalRating = Number((film.totalRating || 0)) + Number(rating);
+    film.ratingCount = Number((film.ratingCount || 0)) + 1;
+    film.rating = Number(film.totalRating / film.ratingCount.toFixed(0));
+
+    fs.writeFile('data/films.json', JSON.stringify(films));
+}
 
 module.exports = router;

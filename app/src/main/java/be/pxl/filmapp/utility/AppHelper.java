@@ -45,6 +45,7 @@ public class AppHelper {
     }
 
     public static AppDatabase getDb(Context context) {
+        context.deleteDatabase("movieDB");
         if (db == null) {
             db = Room.databaseBuilder(context,
                     AppDatabase.class, "movieDB").build();

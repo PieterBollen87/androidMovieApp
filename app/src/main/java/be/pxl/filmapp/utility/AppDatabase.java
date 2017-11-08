@@ -10,7 +10,7 @@ import be.pxl.filmapp.data.dao.MovieDao;
  * Created by Sacha on 22-10-2017.
  */
 
-@Database(entities = {MovieBean.class}, version = 1)
+@Database(entities = {MovieBean.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
 }

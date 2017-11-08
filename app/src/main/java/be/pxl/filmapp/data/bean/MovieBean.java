@@ -21,13 +21,13 @@ public class MovieBean implements Parcelable {
     private String director;
     private int year;
     private String genre;
-    private double rating;
+    private int rating;
     private String trailer;
 
     public MovieBean() {
     }
 
-    public MovieBean(int id, String title, String director, int year, String genre, double rating, String trailer) {
+    public MovieBean(int id, String title, String director, int year, String genre, int rating, String trailer) {
         this.id = id;
         this.title = title;
         this.director = director;
@@ -43,7 +43,7 @@ public class MovieBean implements Parcelable {
         director = in.readString();
         year = in.readInt();
         genre = in.readString();
-        rating = in.readDouble();
+        rating = in.readInt();
         trailer = in.readString();
     }
 
@@ -87,11 +87,11 @@ public class MovieBean implements Parcelable {
         this.genre = genre;
     }
 
-    public double getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
@@ -140,7 +140,7 @@ public class MovieBean implements Parcelable {
         parcel.writeString(director);
         parcel.writeInt(year);
         parcel.writeString(genre);
-        parcel.writeDouble(rating);
+        parcel.writeInt(rating);
         parcel.writeString(trailer);
     }
 

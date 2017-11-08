@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -41,7 +42,7 @@ public class MovieDetailFragment extends Fragment {
     public static final String MOVIE_OBJECT = "be.pxl.filmapp.MOVIE_OBJECT";
     TextView textMovieTitle;
     TextView textYearField;
-    TextView ratingField;
+    RatingBar ratingField;
     NetworkImageView backgroundImageField;
     ListView reviewListView;
 
@@ -50,7 +51,7 @@ public class MovieDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.content_movie_detail, container, false);
         textMovieTitle = (TextView) view.findViewById(R.id.titleField);
         textYearField = (TextView) view.findViewById(R.id.yearField);
-        ratingField = (TextView) view.findViewById(R.id.ratingField);
+        ratingField = (RatingBar) view.findViewById(R.id.ratingField);
         reviewListView = (ListView)  view.findViewById(R.id.list_reviews);
 
         backgroundImageField = (NetworkImageView) view.findViewById(R.id.backgroundImage);
@@ -89,7 +90,7 @@ public class MovieDetailFragment extends Fragment {
     private void initializeDisplayContent() {
         textMovieTitle.setText(movie.getTitle());
         textYearField.setText(String.valueOf(movie.getYear()));
-        ratingField.setText(String.valueOf(movie.getRating()));
+        ratingField.setRating(movie.getRating());
         String name = movie.getTitle().toLowerCase();
         String posterUrl = String.format("%s/public/images/%s.jpg", this.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
 
