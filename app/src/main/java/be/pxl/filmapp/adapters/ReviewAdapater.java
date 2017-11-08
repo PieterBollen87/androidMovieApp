@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -12,7 +13,6 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.List;
 
 import be.pxl.filmapp.R;
-import be.pxl.filmapp.data.bean.MovieBean;
 import be.pxl.filmapp.data.bean.ReviewBean;
 import be.pxl.filmapp.utility.VolleySingleton;
 
@@ -59,7 +59,7 @@ public class ReviewAdapater extends BaseAdapter {
             holder.avatarImageView = (NetworkImageView) convertView.findViewById(R.id.avatar);
             holder.userNameText = (TextView) convertView.findViewById(R.id.name);
             holder.descriptionText = (TextView) convertView.findViewById(R.id.descriptionReview);
-            holder.ratingText = (TextView) convertView.findViewById(R.id.ratingReview);
+            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingReview);
 
             convertView.setTag(holder);
         } else {
@@ -70,7 +70,7 @@ public class ReviewAdapater extends BaseAdapter {
         holder.avatarImageView.setImageUrl(selectedReview.getAvatar(), VolleySingleton.getInstance(inflater.getContext()).getImageLoader());
         holder.userNameText.setText(selectedReview.getUserName());
         holder.descriptionText.setText(selectedReview.getDescription());
-        holder.ratingText.setText(selectedReview.getRating() + "/5");
+        holder.ratingBar.setRating(selectedReview.getRating());
 
         return convertView;
     }
@@ -78,7 +78,7 @@ public class ReviewAdapater extends BaseAdapter {
         NetworkImageView avatarImageView;
         TextView userNameText;
         TextView descriptionText;
-        TextView ratingText;
+        RatingBar ratingBar;
     }
 
 }

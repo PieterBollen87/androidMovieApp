@@ -23,9 +23,10 @@
         android:textStyle="bold"
         android:textSize="12sp" />
 
-    <TextView
+    <RatingBar
         android:id="@+id/ratingReview"
-        android:layout_width="match_parent"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="10dp"
@@ -33,9 +34,8 @@
         android:layout_toEndOf="@+id/avatar"
         android:layout_below="@+id/name"
         android:gravity="center_vertical"
-        android:textColor="#000000"
-        android:text="Rating"
-        android:textSize="10sp" />
+        android:numStars="5"
+        android:stepSize="1.0" />
 
     <TextView
         android:id="@+id/descriptionReview"
@@ -44,6 +44,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginBottom="8dp"
         android:layout_toEndOf="@+id/avatar"
         android:layout_below="@+id/ratingReview"
         android:gravity="center_vertical"
