@@ -45,6 +45,7 @@
             android:gravity="center"
             android:background="#33000000"
             android:hint="Your opinion!"
+            android:maxLength="510"
             android:textSize="16sp" />
 
         <Button
