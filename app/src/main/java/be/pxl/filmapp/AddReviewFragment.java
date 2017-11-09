@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class AddReviewFragment extends Fragment {
     private EditText descriptionEditTextField;
     private NumberPicker ratingNumberPicker;
     private Button sendButton;
+    NetworkImageView backgroundImageField;
 
     public static final String MOVIE_OBJECT = "be.pxl.filmapp.MOVIE_OBJECT";
 
@@ -44,6 +46,7 @@ public class AddReviewFragment extends Fragment {
 
         descriptionEditTextField = (EditText) view.findViewById(R.id.descriptionField);
         ratingNumberPicker = (NumberPicker) view.findViewById(R.id.ratingPicker);
+        backgroundImageField = (NetworkImageView) view.findViewById(R.id.backgroundImage);
         sendButton = (Button) view.findViewById(R.id.sendButton);
 
         ratingNumberPicker.setMinValue(0);
@@ -57,6 +60,11 @@ public class AddReviewFragment extends Fragment {
 
         readDisplayStateValues();
 
+        String name = movie.getTitle().toLowerCase();
+        String posterUrl = String.format("%s/public/images/%s.jpg", this.getResources().getString(R.string.api_url).toString(), name.replace(" ", "_"));
+
+        backgroundImageField.setImageAlpha(80);
+        backgroundImageField.setImageUrl(posterUrl, VolleySingleton.getInstance(getContext()).getImageLoader());
         return view;
     }
 

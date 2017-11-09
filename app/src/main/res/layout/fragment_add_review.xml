@@ -1,13 +1,29 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5DDBF"
-    tools:context="be.pxl.filmapp.AddReviewFragment">
+    android:fillViewport="true"
+    android:background="@color/formbg">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="#55000000"
+            android:backgroundTintMode="src_over"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp">
 
         <NumberPicker
             android:id="@+id/ratingPicker"
@@ -16,8 +32,9 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
+            android:background="@color/trans"
             android:hint="Enter Rating.."
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/descriptionField"
@@ -26,6 +43,7 @@
             android:layout_below="@+id/ratingPicker"
             android:layout_marginTop="10dp"
             android:gravity="center"
+            android:background="#33000000"
             android:hint="Your opinion!"
             android:textSize="16sp" />
 
@@ -41,8 +59,8 @@
             android:layout_marginBottom="5dp"
             android:backgroundTint="@color/colorAccent"
             android:text="Send Review"
-            android:textColor="@color/colorPrimaryDark" />
-
+             />
+    </RelativeLayout>
     </RelativeLayout>
 
-</FrameLayout>
+</ScrollView>
