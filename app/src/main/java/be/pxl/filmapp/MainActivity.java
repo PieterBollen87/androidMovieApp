@@ -148,9 +148,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             case "Personal List":
                 newFragment = new MyListsFragment();
                 break;
-            case "Settings":
-                // handle settings
-                break;
             case "Logout":
                 logout();
                 break;

@@ -50,6 +50,8 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingLeft="5dp"
             android:layout_toRightOf="@+id/rating"
             android:layout_below="@+id/titleField"
             android:gravity="center"
