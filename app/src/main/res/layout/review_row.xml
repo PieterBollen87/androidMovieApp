@@ -20,7 +20,7 @@
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/avatar"
         android:gravity="center_vertical"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:text="User"
         android:textStyle="bold"
         android:textSize="12sp" />
@@ -50,7 +50,7 @@
         android:layout_toEndOf="@+id/avatar"
         android:layout_below="@+id/ratingReview"
         android:gravity="center_vertical"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:text="Opinion"
         android:textSize="10sp" />
 
